@@ -257,6 +257,7 @@ th{
   font-weight: 500;
   border-radius: 5px;
   border: 1.5px solid black;
+  padding: 5px;
 }
 
 .image{
@@ -278,6 +279,38 @@ th{
 }
 .book-info{
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.loader{
+  z-index: 99;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(9.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.loader h1{
+  color: #682da3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-weight: 500;
+}
+.edit{
+  background-color: #2196f3;
+}
+.delete{
+  background-color: red;
 }
 
 @media (max-width: 420px) {

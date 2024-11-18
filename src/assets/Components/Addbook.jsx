@@ -1,12 +1,17 @@
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useEffect, useState } from "react";
 import { userRequest } from "../../axiosReqMethods";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import Loader from "./Loader";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
 function Addbook({ schemename }) {
   const [categorylist, setcategorylist] = useState();
   const [booklist, setbooklist] = useState([]);
   const [schemedata, setschemedata] = useState();
   const [totalprice, settotalprice] = useState(0);
+  const [loader, setloader] = useState(false);
+  const [edit, setedit] = useState(false);
 
   const email = localStorage.getItem("email");
   const User_id = localStorage.getItem("user_id");
@@ -28,8 +33,6 @@ function Addbook({ schemename }) {
     PubYear: "",
     Category: "",
     FrontImage: "",
-    FImage: "",
-    BImage: "",
     BackImage: "",
     schemename: schemename,
     Email: email,
@@ -37,17 +40,26 @@ function Addbook({ schemename }) {
   });
   useEffect(() => {
     const dataget = async () => {
+      setloader(true)
       try {
         const res1 = await userRequest.get(
           `/api/v1/CategoryName/getCategoryName`
         );
         setcategorylist(res1.data.Category);
+        console.log("loading category");
+        const res3 = await userRequest.get(
+          `/api/v1/scheam/getOneScheam/${schemename}`
+        );
+        setschemedata(res3.data.Scheam);
+        console.log("loading scheme");
+        
         const res2 = await userRequest.get(
           `/api/v1/bookeEntry/getBook/${localStorage.getItem(
             "user_id"
           )}/${schemename}`
         );
         
+        console.log(res2.data.bookEntry);
         
         if (res2.data.bookEntry) {
           
@@ -56,8 +68,7 @@ function Addbook({ schemename }) {
         
         console.log(schemedata);
         
-         const res3 = await userRequest.get(`/api/v1/scheam/getOneScheam/${schemename}`);
-        setschemedata(res3.data.Scheam);
+         
         console.log(res3.data.Scheam);
         
         let count = 0;
@@ -67,29 +78,31 @@ function Addbook({ schemename }) {
         settotalprice(count)
         
       } catch (error) {
+        
+      setloader(false);
         console.log(error);
       }
+      setloader(false);
     };
     dataget();
   }, []);
 
   function handleinput(e) {
-    const name = e.target.name;
-    const value = e.target.value;
+    
+    const { name, value } = e.target;
 
     setbookdata({
       ...bookdata,
       [name]: value,
     });
-    if (name === "FImage") {
+    if (name === "FrontImage") {
       const file = e.target.files[0];
       const filereader = new FileReader();
       filereader.readAsDataURL(file);
       filereader.onload = () => {
         setbookdata((p) => ({ ...p, FrontImage: filereader.result }));
       };
-    }
-    if (name === "BImage") {
+    } else if (name === "BackImage") {
       const file = e.target.files[0];
       const filereader = new FileReader();
       filereader.readAsDataURL(file);
@@ -111,9 +124,12 @@ function Addbook({ schemename }) {
     } else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
       alert("You maximum price Limit");
     } else {
+      
+      setloader(true);
       const res = await userRequest.post("/api/v1/bookeEntry/addBook", {
         bookdata,
       });
+      
 
       const res2 = await userRequest.get(
         `/api/v1/bookeEntry/getBook/${localStorage.getItem(
@@ -121,6 +137,11 @@ function Addbook({ schemename }) {
         )}/${schemename}`
       );
       setbooklist(res2.data.bookEntry);
+      let count = 0;
+      for (let index = 0; index < res2.data.bookEntry.length; index++) {
+        count += Number(res2.data.bookEntry[index].Price);
+      }
+      settotalprice(count);
       if (res.status === 200) {
         setbookdata({
           ISBN: "",
@@ -146,14 +167,87 @@ function Addbook({ schemename }) {
           userId: "",
         });
       }
+      
+      setloader(false);
     }
 
    
+  }
+  async function handledelete(i) {
+    // list.remove(i);
+    setloader(true)
+    const res = await userRequest.delete(`/api/v1/bookeEntry/delete/${i._id}`);
+    console.log(res);
+     const res2 = await userRequest.get(
+       `/api/v1/bookeEntry/getBook/${localStorage.getItem(
+         "user_id"
+       )}/${schemename}`
+     );
+
+     console.log(res2.data.bookEntry);
+
+     if (res2.data.bookEntry) {
+       setbooklist(res2.data.bookEntry);
+     }
+    setloader(false);
+
+  }
+  const[editdata,seteditdata] = useState()
+  function showedit(i) {
+    console.log(i);
+    seteditdata(i._id)
+    setedit(true);
+    setbookdata(i);
+  }
+  async function handleedit(i) {
+    // list.remove(i);
+    
+    setloader(true);
+    const res = await userRequest.put(`/api/v1/bookeEntry/update/${editdata}`, {bookdata});
+    console.log(res);
+    setedit(false)
+    setbookdata({
+      ISBN: "",
+      BookName: "",
+      BookNameGuj: "",
+      AuthorName: "",
+      AuthorNameGuj: "",
+      PublisherName: "",
+      Price: "",
+      Discribption: "",
+      Size: "",
+      Binding: "",
+      Weight: "",
+      Language: "",
+      Subject: "",
+      PubYear: "",
+      Category: "",
+      FrontImage: "",
+      BackImage: "",
+      FImage: "",
+      BImage: "",
+      BookPages: "",
+      userId: "",
+    });
+     const res2 = await userRequest.get(
+       `/api/v1/bookeEntry/getBook/${localStorage.getItem(
+         "user_id"
+       )}/${schemename}`
+     );
+
+     console.log(res2.data.bookEntry);
+
+     if (res2.data.bookEntry) {
+       setbooklist(res2.data.bookEntry);
+     }
+    setloader(false);
   }
   return (
     <>
       <div className="main-container">
         {/* <Navbar /> */}
+        {loader && <Loader />}
+
         <div className="addbook-main-container">
           <>
             <div className="Addbook-container">
@@ -166,6 +260,12 @@ function Addbook({ schemename }) {
                       {schemedata.max_book_number}
                     </h4>
                     <h4>Total Price Of Added Books {totalprice} </h4>
+                    <h4>
+                      Min Value Of Book Can Be Added {schemedata.book_price}
+                    </h4>
+                    <h4>
+                      Max Value Of Book Can Be Added {schemedata.max_book_price}
+                    </h4>
                   </>
                 )}
               </div>
@@ -357,33 +457,43 @@ function Addbook({ schemename }) {
               </div>
               <div className="Addbook-inputarea">
                 <label> Front Image </label>
+
                 <input
                   required
+                  accept="image/jpeg, image/png"
+                  name="FrontImage"
                   type="file"
                   className="input"
-                  accept="image/jpeg, image/png"
-                  onChange={handleinput}
-                  name="FImage"
-                  value={bookdata.FImage}
+                  // style={{ display: "none" }}
+                  onChange={(e) => handleinput(e)}
                 />
               </div>
               <div className="Addbook-inputarea">
                 <label> Back Image </label>
                 <input
                   required
+                  accept="image/jpeg, image/png"
+                  name="BackImage"
                   type="file"
                   className="input"
-                  accept="image/jpeg, image/png"
-                  onChange={handleinput}
-                  name="BImage"
-                  value={bookdata.BImage}
+                  // style={{ display: "none" }}
+                  onChange={(e) => handleinput(e)}
                 />
               </div>
             </div>
-            <button onClick={handlesubmit} className="btn">
-              <AddOutlinedIcon />
-              Add
-            </button>
+            {!edit && (
+              <button onClick={handlesubmit} className="btn">
+                <AddOutlinedIcon />
+                Add
+              </button>
+            )}
+            {edit && (
+              <button onClick={handleedit} className="btn">
+                <AddOutlinedIcon />
+                Edit
+              </button>
+            )}
+
             <div className="userlist-container">
               <h1>Added Book List</h1>
               <table>
@@ -405,6 +515,8 @@ function Addbook({ schemename }) {
                     <th> AuthorName</th>
                     <th> AuthorNameGuj</th>
                     <th> Discribption</th>
+                    <th> Edit</th>
+                    <th> Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -443,6 +555,20 @@ function Addbook({ schemename }) {
                         <td key={i.AuthorName}> {i.AuthorName}</td>
                         <td key={i.AuthorNameGuj}> {i.AuthorNameGuj}</td>
                         <td key={i.Discribption}> {i.Discribption}</td>
+                        <td
+                          key={i._id}
+                          onClick={() => showedit(i)}
+                          className="delete"
+                        >
+                          <EditNoteIcon />
+                        </td>
+                        <td
+                          key={i._id}
+                          onClick={() => handledelete(i)}
+                          className="edit"
+                        >
+                          <DeleteForeverOutlinedIcon />
+                        </td>
                       </tr>
                     ))}
                 </tbody>
