@@ -73,7 +73,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 98.7%;
+  width: auto;
   height: 30px;
   margin: 0;
   padding: 10px;
