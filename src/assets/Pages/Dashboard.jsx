@@ -14,6 +14,8 @@ function Dashboard() {
       try {
         const res = await userRequest.get(`/api/v1/scheam/getScheam`);
         setschemelist(res.data.allScheam);
+        console.log(res.data.allScheam);
+        
       } catch (error) {
         console.log(error);
       }
