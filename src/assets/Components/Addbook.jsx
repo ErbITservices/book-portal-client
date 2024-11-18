@@ -1,11 +1,14 @@
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { userRequest } from "../../axiosReqMethods";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import Loader from "./Loader";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import { useReactToPrint } from "react-to-print";
+import DownloadIcon from "@mui/icons-material/Download";
 
 function Addbook({ schemename }) {
+
   const [categorylist, setcategorylist] = useState();
   const [booklist, setbooklist] = useState([]);
   const [schemedata, setschemedata] = useState();
@@ -38,6 +41,13 @@ function Addbook({ schemename }) {
     Email: email,
     userId: User_id,
   });
+
+
+ const pdfref = useRef();
+ const downloadpdf = useReactToPrint({
+   contentRef: pdfref,
+   documentTitle: "mihir",
+ });
   useEffect(() => {
     const dataget = async () => {
       setloader(true)
@@ -114,22 +124,24 @@ function Addbook({ schemename }) {
   }
   async function handlesubmit() {
     if (Number(schemedata.max_book_number) <= booklist.length) {
-         alert("You Reached book Limit");
+         alert("You Reached Maximum book Limit");
     }
     else if (Number(totalprice) >= Number(schemedata.total_book_price)) {
-      alert("You Reached price Limit");
+      alert("You Reached Maximum price Limit Of Set");
     }
     else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
-      alert("You minimum price Limit");
-    } else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
-      alert("You maximum price Limit");
+      alert("Your Book Can Not Be Cheaper Than Minimum Book Price");
+    }
+    else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
+      alert("Your Book Can Not Be Expensive Than Maximum Book Price");
+    }
+    else if (Number(bookdata.ISBN) < 13 && Number(bookdata.ISBN) > 13) {
+      alert("Please Enter 13 Digit ISBN Number");
     } else {
-      
       setloader(true);
       const res = await userRequest.post("/api/v1/bookeEntry/addBook", {
         bookdata,
       });
-      
 
       const res2 = await userRequest.get(
         `/api/v1/bookeEntry/getBook/${localStorage.getItem(
@@ -167,7 +179,7 @@ function Addbook({ schemename }) {
           userId: "",
         });
       }
-      
+
       setloader(false);
     }
 
@@ -269,7 +281,7 @@ function Addbook({ schemename }) {
                   </>
                 )}
               </div>
-              <div className="Addbook-inputarea">
+              <form className="Addbook-inputarea">
                 <label>ISBN</label>
                 <input
                   required
@@ -281,7 +293,7 @@ function Addbook({ schemename }) {
                   className="input"
                   type="number"
                 />
-              </div>
+              </form>
               <div className="Addbook-inputarea">
                 <label>Size</label>
                 <input
@@ -496,7 +508,7 @@ function Addbook({ schemename }) {
 
             <div className="userlist-container">
               <h1>Added Book List</h1>
-              <table>
+              <table ref={pdfref}>
                 <thead>
                   <tr>
                     <th>Front Image</th>
@@ -573,6 +585,10 @@ function Addbook({ schemename }) {
                     ))}
                 </tbody>
               </table>
+              <button onClick={downloadpdf} className="btn">
+                <DownloadIcon />
+                Download Pdf
+              </button>
             </div>
           </>
         </div>
