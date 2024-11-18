@@ -338,4 +338,7 @@ th{
   .login-container{
     width: 80%;
   }
+  .book-info{
+    flex-direction: column;
+  }
 }
