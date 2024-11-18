@@ -558,14 +558,14 @@ function Addbook({ schemename }) {
                         <td
                           key={i._id}
                           onClick={() => showedit(i)}
-                          className="delete"
+                          className="edit"
                         >
                           <EditNoteIcon />
                         </td>
                         <td
                           key={i._id}
                           onClick={() => handledelete(i)}
-                          className="edit"
+                          className="delete"
                         >
                           <DeleteForeverOutlinedIcon />
                         </td>
