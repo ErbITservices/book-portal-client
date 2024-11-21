@@ -4,6 +4,7 @@ import Login from "./assets/Pages/Login";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./assets/Pages/Dashboard";
+import Protected from "./assets/Pages/Protected";
 // import Addbook from "./assets/Pages/Addbook";
 
 function App() {
@@ -11,14 +12,18 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+        <Route
+            path="/"
+            element={<Protected Components={Login} />}
+          ></Route>
+          <Route
+            path="/Dashboard"
+            element={<Protected Components={Dashboard} />}
+          ></Route>
           <Route
             path="/Registration"
-            element={<Registration title="Registration" />}
-          />
-          <Route path="/Dashboard" element={<Dashboard title="Dashboard" />} />
-          {/* <Route path="/Addbook" element={<Addbook title="Addbook" />} /> */}
-          
-          <Route path="/" element={<Login title="Login" />} />
+            element={<Protected Components={Registration} />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
