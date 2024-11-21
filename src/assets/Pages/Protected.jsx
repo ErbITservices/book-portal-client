@@ -11,6 +11,10 @@ function Protected(props) {
         if (login) {
             navigator("/Dashboard");
         }
+        else{
+          
+          navigator("/");
+        }
         
     },[login])
     return (
