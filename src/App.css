@@ -135,12 +135,21 @@ p {
   font-size: 20px;
 }
 .input {
-  border: 1.5px solid black;
-  border-radius: 10px;
+  border: 0.5px solid rgba(0, 0, 0, 0.842);
+  border-radius: 5px;
   padding: 10px;
   background: transparent;
   min-width: 200px;
 }
+.large-input {
+  border: 0.5px solid rgba(0, 0, 0, 0.842);
+  border-radius: 5px;
+  padding: 10px;
+  background: transparent;
+  min-width: 350px;
+  min-height: 100px;
+}
+
 .btn {
   /* margin-bottom: 10px; */
   display: flex;
@@ -212,15 +221,40 @@ box-shadow: 0 0 10px #2196f3;
   width: 100%;
 }
 .Addbook-inputarea{
-  width: 45%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 25px;
+}
+.large-Addbook-inputarea{
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 25px;
+}
+.large-Addbook-inputarea label{
+  width: 25%;
+}
+.Addbook-inputarea label{
+  width: 30%;
+}
+.Addbook-inputarea-select{
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: end;
   gap: 25px;
 }
-.Addbook-inputarea input , select{
-  min-width: 300px;
+.Addbook-inputarea-select label{
+  width: 30%;
 }
+
+.Addbook-inputarea select{
+  min-width: 150px;
+}
+
 .addbook-main-container{
   width: 95%;
   display: flex;
@@ -243,21 +277,26 @@ table {
   width: 100%;
   overflow: visible;
   min-width: 500px;
+  margin: 5px;
 }
 tbody , tr{
   height: fit-content;
 }
 td{
   
-  border: 1.5px solid black;
   height: fit-content;
+  font-weight: 300;
+  font-size: 15px;
 }
 th{
-  background-color: #4ca9f6e2;
+  background-color: grey;
   font-weight: 500;
-  border-radius: 5px;
-  border: 1.5px solid black;
   padding: 5px;
+  font-weight: 400;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 
 .image{
@@ -282,8 +321,8 @@ th{
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
-  background-color: #2a99f4;
+  gap: 10%;
+  background-color: grey;
   border-radius: 10px;
   padding: 10px 0;
   font-weight: 500;
@@ -316,6 +355,19 @@ th{
 .delete{
   background-color: red;
 }
+.submit{
+  background-color: green;
+}
+.submit:hover{
+  
+  background-color: rgb(0, 103, 0);
+}
+.btn-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40%;
+}
 .log-out{
   color: red;
   padding: 5px;
@@ -323,8 +375,24 @@ th{
   border: 1px solid red;
   margin: 10px;
 }
+.sort-input {
+  border: 0.5px solid rgba(0, 0, 0, 0.842);
+  border-radius: 5px;
+  padding: 10px;
+  background: transparent;
+  width: 150px;
+}
+.image-input{
+  display: none;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-@media (max-width: 420px) {
+@media (max-width: 440px) {
   .footer-container
   .navbar-container{
     width: auto;
