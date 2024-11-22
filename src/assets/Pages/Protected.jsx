@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function Protected(props) {
     const { Components } = props;
@@ -19,6 +20,7 @@ function Protected(props) {
     },[login])
     return (
       <div>
+        <SpeedInsights/>
         <Components></Components>
       </div>
     );

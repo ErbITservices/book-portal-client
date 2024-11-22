@@ -78,14 +78,23 @@ function Dashboard() {
     console.log(schemename);
   }
   function handlecontinue() {
+    console.log(schemename);
+    
     if (schemename.schemename != "") {
       setshowaddbook(false);
+      console.log(schemename);
+
+      
     }
   }
   function handlesetshowbookdata(i) {
    
     setshowbookdata(false)
 
+  }
+  function backtodashboard() {
+    setshowaddbook(true)
+    setshowbookdata(true)
   }
   return (
     <>
@@ -144,8 +153,8 @@ function Dashboard() {
             </table>
           </div>
         )}
-        {!showaddbook && <Addbook schemename={schemename.schemename} />}
-        {!showbookdata && <BookData Scheme_name={tempsname} User_id={User_id} />}
+        {!showaddbook && <Addbook schemename={schemename.schemename} backtodashboard={backtodashboard} />}
+        {!showbookdata && <BookData Scheme_name={tempsname} User_id={User_id} backtodashboard={backtodashboard}/>}
       </div>
       <Footer />
     </>

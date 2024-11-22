@@ -8,8 +8,8 @@ function Footer() {
           <h1>Book Portel</h1>
           <p>
             {" "}
-            hello my name is mihir patel <br /> and i am software engineer{" "}
-            <br /> i am studying in computer engineer
+            {/* hello my name is mihir patel <br /> and i am software engineer{" "}
+            <br /> i am studying in computer engineer */}
           </p>
         </div>
         <div className="footer-address">

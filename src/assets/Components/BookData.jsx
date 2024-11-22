@@ -3,8 +3,9 @@ import Loader from "./Loader";
 import { useReactToPrint } from "react-to-print";
 import DownloadIcon from "@mui/icons-material/Download";
 import { userRequest } from "../../axiosReqMethods";
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
-function BookData({User_id,Scheme_name}) {
+function BookData({User_id,Scheme_name, backtodashboard}) {
 
 
   const [loader, setloader] = useState(false);
@@ -110,10 +111,19 @@ function BookData({User_id,Scheme_name}) {
                     ))}
                 </tbody>
               </table>
-              <button onClick={downloadpdf} className="btn">
+              <div className="btn-container">
+              <button onClick={()=>{
+                backtodashboard()
+              }} className="back btn">
+                <KeyboardBackspaceOutlinedIcon />
+                DashBoard
+              </button>
+                <button onClick={downloadpdf} className="btn">
                 <DownloadIcon />
                 Download Pdf
               </button>
+              </div>
+              
             </div></>
   )
 }

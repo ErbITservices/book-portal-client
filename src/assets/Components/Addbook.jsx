@@ -7,8 +7,9 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import { useReactToPrint } from "react-to-print";
 import { useNavigate } from "react-router-dom";
 import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
-function Addbook({ schemename }) {
+function Addbook({ schemename , backtodashboard }) {
 
   const [categorylist, setcategorylist] = useState();
   const [booklist, setbooklist] = useState([]);
@@ -36,8 +37,6 @@ function Addbook({ schemename }) {
     Subject: "",
     PubYear: "",
     Category: "",
-    FrontImage: "",
-    BackImage: "",
     schemename: schemename,
     Email: email,
     userId: User_id,
@@ -106,22 +105,7 @@ function Addbook({ schemename }) {
       ...bookdata,
       [name]: value,
     });
-    if (name === "FrontImage") {
-      const file = e.target.files[0];
-      const filereader = new FileReader();
-      filereader.readAsDataURL(file);
-      filereader.onload = () => {
-        setbookdata((p) => ({ ...p, FrontImage: filereader.result }));
-      };
-    } else if (name === "BackImage") {
-      const file = e.target.files[0];
-      const filereader = new FileReader();
-      filereader.readAsDataURL(file);
-      filereader.onload = () => {
-        setbookdata((p) => ({ ...p, BackImage: filereader.result }));
-      };
-    }
-    console.log(bookdata);
+    
   }
   async function handleadd() {
     if (Number(schemedata.max_book_number) <= booklist.length) {
@@ -140,9 +124,10 @@ function Addbook({ schemename }) {
     else if (Number(bookdata.ISBN.length) < Number(13) || Number(bookdata.ISBN.length) > 13) {
       alert("Please Enter 13 Digit ISBN Number");
     }
-    else if(bookdata.ISBN === "" || bookdata.AuthorName==="" || bookdata.AuthorNameGuj===""|| bookdata.Binding===""|| bookdata.BookName===""|| bookdata.BookNameGuj===""|| bookdata.BookPages===""|| bookdata.Category===""|| bookdata.Discribption===""|| bookdata.ISBN===""|| bookdata.Language===""|| bookdata.Price===""|| bookdata.PubYear===""|| bookdata.PublisherName===""|| bookdata.Size===""|| bookdata.Subject===""|| bookdata.Weight===""){
-      alert("All Field Are Require");
-    } else {
+    // else if(bookdata.ISBN === "" || bookdata.AuthorName==="" || bookdata.AuthorNameGuj===""|| bookdata.Binding===""|| bookdata.BookName===""|| bookdata.BookNameGuj===""|| bookdata.BookPages===""|| bookdata.Category===""|| bookdata.Discribption===""|| bookdata.ISBN===""|| bookdata.Language===""|| bookdata.Price===""|| bookdata.PubYear===""|| bookdata.PublisherName===""|| bookdata.Size===""|| bookdata.Subject===""|| bookdata.Weight===""){
+    //   alert("All Field Are Require");
+    // }
+     else {
       setloader(true);
       const res = await userRequest.post("/api/v1/bookeEntry/addBook", {
         bookdata,
@@ -283,7 +268,7 @@ function Addbook({ schemename }) {
     const res = await userRequest.post("/api/v1/submited/addSubmit", {scheamName : schemename, userId : User_id},
     );
     console.log(res);
-    navigator("/Dashboard")
+    backtodashboard()
   }
   return (
     <>
@@ -303,7 +288,7 @@ function Addbook({ schemename }) {
                        Book Added {booklist.length} /{" "}
                       {schemedata.max_book_number}
                     </h4>
-                    <h4>Total Value Of Set {totalprice} </h4>
+                    <h4>Total Value Of Set {totalprice} / {schemedata.total_book_price} </h4>
                     <h4>
                       Min Value Of Book  {schemedata.book_price}
                     </h4>
@@ -339,6 +324,17 @@ function Addbook({ schemename }) {
                 />
               </div>
               <div className="Addbook-inputarea">
+                <label>Book Name (Guj) </label>
+                <input
+                  required
+                  className="input"
+                  type="text"
+                  onChange={handleinput}
+                  name="BookNameGuj"
+                  value={bookdata.BookNameGuj}
+                />
+              </div>
+              <div className="Addbook-inputarea">
                 <label>Author Name </label>
                 <input
                   required
@@ -347,6 +343,17 @@ function Addbook({ schemename }) {
                   onChange={handleinput}
                   name="AuthorName"
                   value={bookdata.AuthorName}
+                />
+              </div>
+              <div className="Addbook-inputarea">
+                <label>Author Name (Guj) </label>
+                <input
+                  required
+                  className="input"
+                  type="text"
+                  onChange={handleinput}
+                  name="AuthorNameGuj"
+                  value={bookdata.AuthorNameGuj}
                 />
               </div>
               <div className="Addbook-inputarea">
@@ -360,7 +367,7 @@ function Addbook({ schemename }) {
                   value={bookdata.Price}
                 />
               </div>
-              <div className="Addbook-inputarea-select">
+              <div className="Addbook-inputarea">
               <label>Subject </label>
                 <select
                   required
@@ -376,7 +383,10 @@ function Addbook({ schemename }) {
                 <option>C</option>
 
               </select>
-                <label> Category </label>
+                
+              </div>
+              <div className="Addbook-inputarea">
+              <label> Category </label>
                 <select
                   required
                   className="input"
@@ -389,58 +399,25 @@ function Addbook({ schemename }) {
                     categorylist.map((i) => (
                       <option key={i.CategoryName}>{i.CategoryName}</option>
                     ))}
-                  <option>mihir</option>
                 </select>
               </div>
+              
               <div className="Addbook-inputarea">
-                <label>Book Name (Guj) </label>
+                <label> Publisher Name </label>
                 <input
                   required
                   className="input"
                   type="text"
                   onChange={handleinput}
-                  name="BookNameGuj"
-                  value={bookdata.BookNameGuj}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Author Name (Guj) </label>
-                <input
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="AuthorNameGuj"
-                  value={bookdata.AuthorNameGuj}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Binding</label>
-                <input
-                  required
-                  className="input"
-                  onChange={handleinput}
-                  type="text"
-                  name="Binding"
-                  value={bookdata.Binding}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Size</label>
-                <input
-                  required
-                  className="input"
-                  type="number"
-                  onChange={handleinput}
-                  name="Size"
-                  value={bookdata.Size}
+                  name="PublisherName"
+                  value={bookdata.PublisherName}
                 />
               </div>
               <div className="Addbook-inputarea">
                 <label> Pub Year </label>
                 <input
                   required
-                  className="input"
+                  className="sort-input"
                   type="number"
                   onChange={handleinput}
                   name="PubYear"
@@ -463,17 +440,8 @@ function Addbook({ schemename }) {
                   <option>Englixh</option>
                 </select>
               </div>
-              <div className="large-Addbook-inputarea">
-                <label>Weight </label>
-                <input
-                  required
-                  className="sort-input"
-                  type="text"
-                  onChange={handleinput}
-                  name="Weight"
-                  value={bookdata.Weight}
-                />
-                <label>Number Of Pages </label>
+              <div className="Addbook-inputarea">
+              <label>Number Of Pages </label>
                 <input
                   required
                   className="sort-input"
@@ -484,17 +452,46 @@ function Addbook({ schemename }) {
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label> Publisher Name </label>
+                <label>Weight </label>
                 <input
                   required
-                  className="input"
+                  className="sort-input"
                   type="text"
                   onChange={handleinput}
-                  name="PublisherName"
-                  value={bookdata.PublisherName}
+                  name="Weight"
+                  value={bookdata.Weight}
+                />
+                
+              </div>
+              <div className="Addbook-inputarea">
+                <label>Binding</label>
+                <input
+                  required
+                  className="sort-input"
+                  onChange={handleinput}
+                  type="text"
+                  name="Binding"
+                  value={bookdata.Binding}
                 />
               </div>
               <div className="Addbook-inputarea">
+                <label>Size</label>
+                <input
+                  required
+                  className="sort-input"
+                  type="number"
+                  onChange={handleinput}
+                  name="Size"
+                  value={bookdata.Size}
+                />
+              </div>
+              
+             
+              
+              
+              
+              
+              <div className="large-Addbook-inputarea">
                 <label> Discription </label>
                 <textarea
                   required
@@ -504,33 +501,15 @@ function Addbook({ schemename }) {
                   value={bookdata.Discribption}
                 ></textarea>
               </div>
-              <div className="Addbook-inputarea image-input">
-                <label> Front Image </label>
-
-                <input
-                  // required
-                  accept="image/jpeg, image/png"
-                  name="FrontImage"
-                  type="file"
-                  className="image-input"
-                  // style={{ display: "none" }}
-                  onChange={(e) => handleinput(e)}
-                />
-              </div>
-              <div className="Addbook-inputarea image-input">
-                <label> Back Image </label>
-                <input
-                  // required
-                  accept="image/jpeg, image/png"
-                  name="BackImage"
-                  type="file"
-                  className="image-input"
-                  // style={{ display: "none" }}
-                  onChange={(e) => handleinput(e)}
-                />
-              </div>
+              
             </div>
             {!edit && (<div className="btn-container">
+              <button onClick={()=>{
+                backtodashboard()
+              }} className="back btn">
+                <KeyboardBackspaceOutlinedIcon />
+                DashBoard
+              </button>
               <button onClick={handlesubmit} className="submit btn">
               <PublishOutlinedIcon />
               Submit
@@ -539,14 +518,23 @@ function Addbook({ schemename }) {
                 <AddOutlinedIcon />
                 Add
               </button>
+              
              
             </div>
             )}
-            {edit && (
+            {edit && (<div className="btn-container">
+              <button onClick={()=>{
+                backtodashboard()
+              }} className="back btn">
+                <KeyboardBackspaceOutlinedIcon />
+                DashBoard
+              </button>
               <button onClick={handleedit} className="btn">
                 <EditNoteIcon />
                 Edit
               </button>
+              
+              </div>
             )}
 </div>
 
@@ -562,7 +550,7 @@ function Addbook({ schemename }) {
                     <th>Price</th>
                     <th> ISBN</th>
                     <th> Category</th>
-                    <th> Language</th>
+                    {/* <th> Language</th> */}
                     <th> PublisherName</th>
                     <th> Size</th>
                     <th> Subject</th>
@@ -602,7 +590,7 @@ function Addbook({ schemename }) {
                         <td key={i.Price}> {i.Price}</td>
                         <td key={i.ISBN}> {i.ISBN}</td>
                         <td key={i.Category}> {i.Category}</td>
-                        <td key={i.Language}> {i.Language}</td>
+                        {/* <td key={i.Language}> {i.Language}</td> */}
                         <td key={i.PublisherName}> {i.PublisherName}</td>
                         <td key={i.Size}> {i.Size}</td>
                         <td key={i.Subject}> {i.Subject}</td>
