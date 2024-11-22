@@ -62,12 +62,12 @@ function Addbook({ schemename , backtodashboard }) {
           `/api/v1/CategoryName/getCategoryName`
         );
         setcategorylist(res1.data.Category);
-        console.log("loading category");
+        // console.log("loading category");
         const res3 = await userRequest.get(
           `/api/v1/scheam/getOneScheam/${schemename}`
         );
         setschemedata(res3.data.Scheam);
-        console.log("loading scheme");
+        // console.log("loading scheme");
         
         const res2 = await userRequest.get(
           `/api/v1/bookeEntry/getBook/${localStorage.getItem(
@@ -79,17 +79,17 @@ function Addbook({ schemename , backtodashboard }) {
         );
           setsubjectlist(res4.data.Subject)
         
-        console.log(res2.data.bookEntry);
+        console.log(res4.data);
         
         if (res2.data.bookEntry) {
           
         setbooklist(res2.data.bookEntry);
         }
         
-        console.log(schemedata);
+        // console.log(schemedata);
         
          
-        console.log(res3.data.Scheam);
+        // console.log(res3.data.Scheam);
         
         let count = 0;
         for (let index = 0; index < res2.data.bookEntry.length; index++) {
