@@ -26,7 +26,7 @@ function Navbar() {
           <AccountCircleOutlinedIcon />
           <h3>Welcome, { 
             localStorage.getItem("username")}</h3>
-          <p onClick={handlelogout} className="log-out">Log Out</p>
+          <button onClick={handlelogout} className="log-out">Log Out</button>
         </div>
       </div>
     </>

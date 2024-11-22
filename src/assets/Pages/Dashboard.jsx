@@ -82,7 +82,6 @@ function Dashboard() {
     
     if (schemename.schemename != "") {
       setshowaddbook(false);
-      console.log(schemename);
 
       
     }
@@ -93,6 +92,8 @@ function Dashboard() {
 
   }
   function backtodashboard() {
+    
+    setschemename({schemename: ""})
     setshowaddbook(true)
     setshowbookdata(true)
   }

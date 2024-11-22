@@ -8,6 +8,8 @@ import { useReactToPrint } from "react-to-print";
 import { useNavigate } from "react-router-dom";
 import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
+import Submitdilog from "../Dilogs/Submitdilog";
+import Deletedilog from "../Dilogs/Deletedilog";
 
 function Addbook({ schemename , backtodashboard }) {
 
@@ -17,7 +19,10 @@ function Addbook({ schemename , backtodashboard }) {
   const [totalprice, settotalprice] = useState(0);
   const [loader, setloader] = useState(false);
   const [edit, setedit] = useState(false);
+  const [deletedata,setdeletedata] = useState();
 
+  const [deletedilog, setdeletedilog] = useState(false);
+  const [submitdilog, setsubmitdilog] = useState(false);
   const email = localStorage.getItem("email");
   const User_id = localStorage.getItem("user_id");
   const [bookdata, setbookdata] = useState({
@@ -105,6 +110,8 @@ function Addbook({ schemename , backtodashboard }) {
       ...bookdata,
       [name]: value,
     });
+    console.log(bookdata);
+    
     
   }
   async function handleadd() {
@@ -112,7 +119,7 @@ function Addbook({ schemename , backtodashboard }) {
          alert("You Reached Maximum book Limit");
     }
     
-    else if (Number(totalprice) >= Number(schemedata.total_book_price)) {
+    else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>=Number(schemedata.total_book_price)) {
       alert("You Reached Maximum price Limit Of Set");
     }
     else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
@@ -124,9 +131,9 @@ function Addbook({ schemename , backtodashboard }) {
     else if (Number(bookdata.ISBN.length) < Number(13) || Number(bookdata.ISBN.length) > 13) {
       alert("Please Enter 13 Digit ISBN Number");
     }
-    // else if(bookdata.ISBN === "" || bookdata.AuthorName==="" || bookdata.AuthorNameGuj===""|| bookdata.Binding===""|| bookdata.BookName===""|| bookdata.BookNameGuj===""|| bookdata.BookPages===""|| bookdata.Category===""|| bookdata.Discribption===""|| bookdata.ISBN===""|| bookdata.Language===""|| bookdata.Price===""|| bookdata.PubYear===""|| bookdata.PublisherName===""|| bookdata.Size===""|| bookdata.Subject===""|| bookdata.Weight===""){
-    //   alert("All Field Are Require");
-    // }
+    else if(bookdata.ISBN === "" || bookdata.AuthorName==="" || bookdata.AuthorNameGuj===""|| bookdata.Binding===""|| bookdata.BookName===""|| bookdata.BookNameGuj===""|| bookdata.BookPages===""|| bookdata.Category===""|| bookdata.Discribption===""|| bookdata.ISBN===""|| bookdata.Language===""|| bookdata.Price===""|| bookdata.PubYear===""|| bookdata.PublisherName===""|| bookdata.Size===""|| bookdata.Subject===""|| bookdata.Weight===""){
+      alert("All Field Are Require");
+    }
      else {
       setloader(true);
       const res = await userRequest.post("/api/v1/bookeEntry/addBook", {
@@ -191,6 +198,7 @@ function Addbook({ schemename , backtodashboard }) {
      if (res2.data.bookEntry) {
        setbooklist(res2.data.bookEntry);
      }
+     setdeletedilog(false);
     setloader(false);
 
   }
@@ -206,7 +214,7 @@ function Addbook({ schemename , backtodashboard }) {
     if (Number(schemedata.max_book_number) <= booklist.length) {
       alert("You Reached Maximum book Limit");
  }
- else if (Number(totalprice) >= Number(schemedata.total_book_price)) {
+ else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>=Number(schemedata.total_book_price)) {
    alert("You Reached Maximum price Limit Of Set");
  }
  else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
@@ -249,13 +257,14 @@ function Addbook({ schemename , backtodashboard }) {
       BookPages: "",
       userId: "",
     });
+    
+    setbooklist([]);
      const res2 = await userRequest.get(
        `/api/v1/bookeEntry/getBook/${localStorage.getItem(
          "user_id"
        )}/${schemename}`
      );
 
-     console.log(res2.data.bookEntry);
 
      if (res2.data.bookEntry) {
        setbooklist(res2.data.bookEntry);
@@ -265,17 +274,24 @@ function Addbook({ schemename , backtodashboard }) {
   }
   const navigator = useNavigate();
   async function handlesubmit() {
-    const res = await userRequest.post("/api/v1/submited/addSubmit", {scheamName : schemename, userId : User_id},
-    );
-    console.log(res);
-    backtodashboard()
+    if (booklist.length>0) {
+      const res = await userRequest.post("/api/v1/submited/addSubmit", {scheamName : schemename, userId : User_id},
+      );
+      backtodashboard()
+    }
+    else{
+      alert("Please Add Some Books For Submission")
+      setsubmitdilog(false)
+    }
+    
   }
   return (
     <>
       <div className="main-container">
         {/* <Navbar /> */}
         {loader && <Loader />}
-
+        {submitdilog && <Submitdilog handlesubmit={handlesubmit} setsubmitdilog={setsubmitdilog}/>}
+        {deletedilog && <Deletedilog handledelete={handledelete} deletedata={deletedata}  setdeletedilog={setdeletedilog}/>}
         <div className="addbook-main-container">
           <>
           <div >
@@ -510,7 +526,7 @@ function Addbook({ schemename , backtodashboard }) {
                 <KeyboardBackspaceOutlinedIcon />
                 DashBoard
               </button>
-              <button onClick={handlesubmit} className="submit btn">
+              <button onClick={()=> setsubmitdilog(true)} className="submit btn">
               <PublishOutlinedIcon />
               Submit
             </button>
@@ -608,7 +624,9 @@ function Addbook({ schemename , backtodashboard }) {
                         </td>
                         <td
                           key={i._id}
-                          onClick={() => handledelete(i)}
+                          onClick={() =>{ setdeletedilog(true)
+                            setdeletedata(i)
+                          }}
                           className="delete"
                         >
                           <DeleteForeverOutlinedIcon />
