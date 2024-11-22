@@ -142,7 +142,7 @@ function Dashboard() {
                         {i.submissionDate.slice(0, 10)}
                       </td>
                       <td key={i.scheamName}> {i.scheamName}</td>
-                      <td key={index} onClick={()=>{
+                      <td key={index} className="eye" onClick={()=>{
                         console.log(i.scheamName);
                          settempsname(i.scheamName)
                         handlesetshowbookdata(i.scheamName)}}>

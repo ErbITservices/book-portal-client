@@ -405,6 +405,9 @@ table, th, td {
   background-color: rgb(200, 17, 53);
   box-shadow: 0 0 10px rgb(255, 21, 68);
 }
+.eye:hover{
+  background-color:rgb(222, 241, 255);
+}
 .okay{
   background-color: #0541ce;
   color: white;

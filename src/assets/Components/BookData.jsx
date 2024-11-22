@@ -14,7 +14,9 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
   const pdfref = useRef();
  const downloadpdf = useReactToPrint({
    contentRef: pdfref,
-   documentTitle: "mihir",
+   documentTitle: `${User_id+Scheme_name}`,
+
+   
  });
   useEffect(() => {
     const dataget = async () => {
@@ -50,8 +52,12 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
     <>
     <div className="userlist-container">
     {loader && <Loader />}
-              <h1>Added Book List</h1>
-              <table ref={pdfref}>
+              {/* <h1>Added Book List</h1> */}
+              <div ref={pdfref}>
+                
+              <div> <h1>{Scheme_name}</h1> </div>
+              <table >
+                
                 <thead>
                   <tr>
                     {/* <th>Front Image</th> */}
@@ -74,23 +80,7 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
                   {booklist &&
                     booklist.map((i) => (
                       <tr>
-                        {/* <td key={i.BookName}>
-                          <img
-                            className="image"
-                            src={i.FrontImage}
-                            onClick={() =>
-                              (window.location.href = i.FrontImage)
-                            }
-                          />
-                        </td> */}
-                        {/* <td key={i.BookName}>
-                          {" "}
-                          <img
-                            className="image"
-                            onClick={() => (window.location.href = i.BackImage)}
-                            src={i.BackImage}
-                          />
-                        </td> */}
+                       
                         <td key={i.BookName}> {i.BookName}</td>
 
                         {/* <td key={i.BookNameGuj}> {i.BookNameGuj}</td> */}
@@ -111,6 +101,8 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
                     ))}
                 </tbody>
               </table>
+              </div>
+              
               <div className="btn-container">
               <button onClick={()=>{
                 backtodashboard()

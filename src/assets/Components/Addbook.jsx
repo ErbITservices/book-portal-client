@@ -14,6 +14,7 @@ import Deletedilog from "../Dilogs/Deletedilog";
 function Addbook({ schemename , backtodashboard }) {
 
   const [categorylist, setcategorylist] = useState();
+  const [subjectlist, setsubjectlist] = useState();
   const [booklist, setbooklist] = useState([]);
   const [schemedata, setschemedata] = useState();
   const [totalprice, settotalprice] = useState(0);
@@ -73,6 +74,10 @@ function Addbook({ schemename , backtodashboard }) {
             "user_id"
           )}/${schemename}`
         );
+        const res4 = await userRequest.get(
+          `/api/v1/subject/getSubject`
+        );
+          setsubjectlist(res4.data.Subject)
         
         console.log(res2.data.bookEntry);
         
@@ -146,11 +151,7 @@ function Addbook({ schemename , backtodashboard }) {
         )}/${schemename}`
       );
       setbooklist(res2.data.bookEntry);
-      let count = 0;
-      for (let index = 0; index < res2.data.bookEntry.length; index++) {
-        count += Number(res2.data.bookEntry[index].Price);
-      }
-      settotalprice(count);
+      
       if (res.status === 200) {
         setbookdata({
           ISBN: "",
@@ -168,16 +169,17 @@ function Addbook({ schemename , backtodashboard }) {
           Subject: "",
           PubYear: "",
           Category: "",
-          FrontImage: "",
-          BackImage: "",
-          FImage: "",
-          BImage: "",
           BookPages: "",
           userId: "",
         });
       }
 
       setloader(false);
+      let count = 0;
+      for (let index = 0; index < res2.data.bookEntry.length; index++) {
+        count += Number(res2.data.bookEntry[index].Price);
+      }
+      settotalprice(count);
     }
 
    
@@ -264,15 +266,17 @@ function Addbook({ schemename , backtodashboard }) {
          "user_id"
        )}/${schemename}`
      );
-
-
      if (res2.data.bookEntry) {
        setbooklist(res2.data.bookEntry);
      }
     }
     setloader(false);
+    let count = 0;
+      for (let index = 0; index < res2.data.bookEntry.length; index++) {
+        count += Number(res2.data.bookEntry[index].Price);
+      }
+      settotalprice(count);
   }
-  const navigator = useNavigate();
   async function handlesubmit() {
     if (booklist.length>0) {
       const res = await userRequest.post("/api/v1/submited/addSubmit", {scheamName : schemename, userId : User_id},
@@ -394,9 +398,10 @@ function Addbook({ schemename , backtodashboard }) {
                   value={bookdata.Subject}
                 >
                   <option value={""}>Select</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
+                  {subjectlist &&
+                    subjectlist.map((i) => (
+                      <option key={i.SubjectName}>{i.SubjectName}</option>
+                    ))}
 
               </select>
                 
@@ -568,10 +573,10 @@ function Addbook({ schemename , backtodashboard }) {
                     <th> Category</th>
                     {/* <th> Language</th> */}
                     <th> PublisherName</th>
-                    <th> Size</th>
+                    {/* <th> Size</th> */}
                     <th> Subject</th>
                     <th> Weight</th>
-                    <th> Binding</th>
+                    {/* <th> Binding</th> */}
                     <th> AuthorName</th>
                     {/* <th> AuthorNameGuj</th> */}
                     {/* <th> Discribption</th> */}
@@ -608,10 +613,10 @@ function Addbook({ schemename , backtodashboard }) {
                         <td key={i.Category}> {i.Category}</td>
                         {/* <td key={i.Language}> {i.Language}</td> */}
                         <td key={i.PublisherName}> {i.PublisherName}</td>
-                        <td key={i.Size}> {i.Size}</td>
+                        {/* <td key={i.Size}> {i.Size}</td> */}
                         <td key={i.Subject}> {i.Subject}</td>
                         <td key={i.Weight}> {i.Weight}</td>
-                        <td key={i.Binding}> {i.Binding}</td>
+                        {/* <td key={i.Binding}> {i.Binding}</td> */}
                         <td key={i.AuthorName}> {i.AuthorName}</td>
                         {/* <td key={i.AuthorNameGuj}> {i.AuthorNameGuj}</td> */}
                         {/* <td key={i.Discribption}> {i.Discribption}</td> */}

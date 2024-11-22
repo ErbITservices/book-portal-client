@@ -50,7 +50,7 @@ function Login() {
   return (
     <>
       <div className="background">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="container">
           <div className="login-container">
             <h1>
