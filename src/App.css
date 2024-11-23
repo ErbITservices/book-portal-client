@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  
+  background-color: whitesmoke;
 }
 .main-container {
   height: 100%;
@@ -159,14 +159,14 @@ p {
   margin: 20px 0px;
   padding: 10px 30px;
   border-radius: 20px;
-  background-color: #24A0ED;
+  background-color: #37a1e4;
   border: none;
   font-weight: 400;
   max-width: 200px;
 }
 .btn:hover{
   transition: ease all 0.3s;
-background-color: #1b7bc9;
+background-color: #2476b9;
 box-shadow: 0 0 10px #2196f3;
 }
 .signup-container {
@@ -317,6 +317,7 @@ table, th, td {
   justify-content: center;
   align-items: center;
   overflow: auto;
+  margin: 10px;
 }
 .userlist-container h1{
   margin: 20px 0;
@@ -395,7 +396,7 @@ table, th, td {
   background-color: #24A0ED;
 }
 .delete{
-  background-color: red;
+  background-color: rgb(253, 43, 43);
 }
 .cancel{
   background-color:crimson;
@@ -431,10 +432,10 @@ table, th, td {
   gap: 20%;
 }
 .log-out{
-  color: red;
+  color: rgb(251, 44, 44);
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid red;
+  border: 1px solid rgb(249, 46, 46);
   margin: 10px;
 }
 .sort-input {
