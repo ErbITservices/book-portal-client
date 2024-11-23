@@ -269,15 +269,17 @@ function Addbook({ schemename , backtodashboard }) {
      if (res2.data.bookEntry) {
        setbooklist(res2.data.bookEntry);
      }
-    }
-    setloader(false);
-      let count = 0;
+     let count = 0;
       for (let index = 0; index < res2.data.bookEntry.length; index++) {
         count += Number(res2.data.bookEntry[index].Price);
         console.log(count);
         
       }
       settotalprice(count);
+    }
+      
+      
+    setloader(false);
   }
   async function handlesubmit() {
     if (booklist.length>0) {
@@ -611,9 +613,9 @@ function Addbook({ schemename , backtodashboard }) {
                         <td key={i.Subject}> {i.Subject}</td>
                         <td key={i.Category}> {i.Category}</td>
                         {/* <td key={i.Language}> {i.Language}</td> */}
-                        <td key={i.PublisherName}> {i.PublisherName}</td>
+                        {/* <td key={i.PublisherName}> {i.PublisherName}</td> */}
                         {/* <td key={i.Size}> {i.Size}</td> */}
-                        <td key={i.Weight}> {i.Weight}</td>
+                        {/* <td key={i.Weight}> {i.Weight}</td> */}
                         {/* <td key={i.Binding}> {i.Binding}</td> */}
                         {/* <td key={i.AuthorNameGuj}> {i.AuthorNameGuj}</td> */}
                         {/* <td key={i.Discribption}> {i.Discribption}</td> */}

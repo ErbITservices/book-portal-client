@@ -55,7 +55,7 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
               {/* <h1>Added Book List</h1> */}
               <div ref={pdfref}>
                 
-              <div> <h1>{Scheme_name}</h1> </div>
+              <div> <h1>Book List Of {Scheme_name}</h1> </div>
               <table >
                 
                 <thead>
