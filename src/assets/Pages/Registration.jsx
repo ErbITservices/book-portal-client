@@ -43,7 +43,7 @@ function Registration() {
           cpassword: "",
         }
         );
-        navigator("/")
+        navigator("/book-list")
       }
     }
     else {
@@ -128,7 +128,7 @@ function Registration() {
               {" "}
               Sign Up
             </button>
-            <Link to="/">
+            <Link to="/book-list">
               <p>Already Login, Sign In</p>
             </Link>
           </div>

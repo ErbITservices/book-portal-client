@@ -14,7 +14,7 @@ function Protected(props) {
         }
         else{
           
-          navigator("/");
+          navigator("/book-list");
         }
         
     },[login])

@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route
-            path="/"
+            path="/book-list"
             element={<Protected Components={Login} />}
           ></Route>
           <Route

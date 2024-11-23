@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Navbar() {
   const navigator = useNavigate();
   function handlelogout() {
-    navigator("/")
+    navigator("/book-list")
     
     localStorage.setItem("bookportellogin", "");
     localStorage.setItem("username", "");
