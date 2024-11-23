@@ -5,7 +5,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { userRequest } from "../../axiosReqMethods";
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
-function BookData({User_id,Scheme_name, backtodashboard}) {
+function BookData({User_id,Scheme_name, backtodashboard ,submiteddate}) {
 
 
   const [loader, setloader] = useState(false);
@@ -54,51 +54,60 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
     {loader && <Loader />}
               {/* <h1>Added Book List</h1> */}
               <div ref={pdfref}>
-                
-              <div className="pdf-info"> <h2>Book List Of {Scheme_name}</h2> 
-              <h2>User Name {localStorage.getItem("username")}</h2></div>
-              <table >
+              <h1>Book List Of {Scheme_name}</h1> 
+              <div className="pdf-info"> 
+              <h3>User Name {localStorage.getItem("username")}</h3>
+              <h3>{submiteddate.slice(0,10)}</h3>
+              </div>
+              <table className="data-table" >
                 
                 <thead>
-                  <tr>
-                    {/* <th>Front Image</th> */}
-                    {/* <th>Back Image</th> */}
-                    
-                    <th> ISBN</th>
-                    <th>Book Name</th>
-                    
-                    <th> AuthorName</th>
-                    <th> PublisherName</th>
-                    {/* <th>Book Name Guj</th> */}
-                    <th>Price</th>
-                    <th> Category</th>
-                    
-                    <th> Subject</th>
-                    <th> Language</th>
-                    <th> Size</th>
-                    <th> Weight</th>
-                    <th> Binding</th>
-                  </tr>
+                <tr>
+                  <th> Sr no</th>
+                  <th> ISBN</th>
+                  <th> Book Name</th>
+                  <th> Book Name (Guj)</th>
+                  <th> Author Name</th>
+                  <th> Author Name (Guj)</th>
+                  <th> Publisher Name</th>
+                  <th> Price</th>
+                  <th> Pages</th>
+                  <th> Size</th>
+                  <th> Weight</th>
+                  <th> Binding</th>
+                  <th> Language</th>
+                  <th> Category</th>
+                  <th> Subject</th>
+                  <th> Pub Year</th>
+                  <th> Scheme Name</th>
+                  {/* <th> Discription</th> */}
+                </tr>
                 </thead>
                 <tbody>
                   {booklist &&
-                    booklist.map((i) => (
+                    booklist.map((i , index) => (
                       <tr>
-                       
-                       <td key={i.ISBN}> {i.ISBN}</td>
-                        <td key={i.BookName}> {i.BookName}</td>
-                        <td key={i.AuthorName}> {i.AuthorName}</td>
-                        <td key={i.PublisherName}> {i.PublisherName}</td>
-                        <td key={i.Price}> {i.Price}</td>
-                        <td key={i.Category}> {i.Category}</td>
-                        <td key={i.Subject}> {i.Subject}</td>
-                        <td key={i.Language}> {i.Language}</td>
-                        <td key={i.Size}> {i.Size}</td>
-                        <td key={i.Weight}> {i.Weight}</td>
-                        <td key={i.Binding}> {i.Binding}</td>
-                        
-                       
-                      </tr>
+                      <td key={i.index + 1}> {index + 1}</td>
+                      <td key={i.ISBN}> {i.ISBN}</td>
+                      <td key={i.BookName}> {i.BookName}</td>
+                      <td key={i.BookNameGuj}> {i.BookNameGuj}</td>
+                      <td key={i.AuthorName}> {i.AuthorName}</td>
+                      <td key={i.AuthorNameGuj}> {i.AuthorNameGuj}</td>
+                      <td key={i.PublisherName}> {i.PublisherName}</td>
+                      <td key={i.Price}> {i.Price}</td>
+                      <td key={i.BookPages}> {i.BookPages}</td>
+                      <td key={i.Size}> {i.Size}</td>
+                      <td key={i.Weight}> {i.Weight}</td>
+                      <td key={i.Binding}> {i.Binding} </td>
+                      <td key={i.Language}> {i.Language} </td>
+                      <td key={i.Category}> {i.Category} </td>
+                      <td key={i.Subject}> {i.Subject} </td>
+                      <td key={i.PubYear}> {i.PubYear} </td>
+                      <td key={i.schemename}> {i.schemename} </td>
+                      {/* <td key={i.Discribption
+}> {i.Discribption
+}</td> */}
+                    </tr>
                     ))}
                 </tbody>
               </table>

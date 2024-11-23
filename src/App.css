@@ -71,7 +71,8 @@ p {
   width: 100%;
   align-items: center;
   justify-content: center;
-  gap: 40%;
+  gap: 50%;
+  margin: 15px 0;
 }
 /* navbar */
 
@@ -289,6 +290,18 @@ table {
   overflow: visible;
   min-width: 500px;
   margin: 20px;
+  
+}
+.data-table{
+  border: 1.5px solid black;
+  border-radius: 10px;
+  height: fit-content;
+  width: 90%;
+  overflow: visible;
+  min-width: 500px;
+  margin: 20px;
+  align-items: center;
+  text-align: center;
 }
 tbody , tr{
   height: fit-content;
@@ -461,10 +474,10 @@ table, th, td {
   display: none;
 }
 .back{
-  background-color: rgb(182, 182, 11);
+  background-color: rgb(178, 192, 54);
 }
 .back:hover{
-  background-color: rgb(155, 155, 3);
+  background-color: rgb(154, 154, 23);
   box-shadow: 0 0 10px rgb(184, 184, 3);
 }
 form{

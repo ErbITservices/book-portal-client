@@ -26,6 +26,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   const [submitdilog, setsubmitdilog] = useState(false);
   const email = localStorage.getItem("email");
   const User_id = localStorage.getItem("user_id");
+  const User_name = localStorage.getItem("username");
   const [bookdata, setbookdata] = useState({
     ISBN: "",
     BookName: "",
@@ -46,6 +47,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     schemename: schemename,
     Email: email,
     userId: User_id,
+    User_name: User_name
   });
 
 
@@ -173,6 +175,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
           schemename: schemename,
           Email: email,
           userId: User_id,
+          User_name:User_name
         });
       }
 
@@ -189,6 +192,8 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   async function handledelete(i) {
     // list.remove(i);
     setloader(true)
+    
+    setbooklist([]);
     const res = await userRequest.delete(`/api/v1/bookeEntry/delete/${i._id}`);
     console.log(res);
      const res2 = await userRequest.get(
@@ -198,7 +203,6 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
      );
 
 
-     setbooklist([]);
      if (res2.data.bookEntry) {
        setbooklist(res2.data.bookEntry);
      }
@@ -258,6 +262,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     schemename: schemename,
     Email: email,
     userId: User_id,
+    User_name:User_name,
     });
     
     setbooklist([]);
@@ -555,12 +560,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
             </div>
             )}
             {edit && (<div className="btn-container">
-              <button onClick={()=>{
-                backtodashboard()
-              }} className="back btn">
-                <KeyboardBackspaceOutlinedIcon />
-                DashBoard
-              </button>
+              
               <button onClick={handleedit} className="btn">
                 <EditNoteIcon />
                 Edit
@@ -578,18 +578,18 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                     {/* <th>Front Image</th> */}
                     {/* <th>Back Image</th> */}
                     
-                    <th> ISBN</th>
-                    <th>Book Name</th>
+                    <th> ISBN : </th>
+                    <th>Book Name : </th>
                     
-                    <th> Author Name</th>
+                    <th> Author Name : </th>
                     {/* <th>Book Name Guj</th> */}
-                    <th>Price</th>
+                    <th>Price : </th>
                     
-                    <th> Subject</th>
-                    <th> Category</th>
+                    <th> Subject : </th>
+                    <th> Category : </th>
                     
-                    <th> Edit</th>
-                    <th> Delete</th>
+                    <th> Edit : </th>
+                    <th> Delete : </th>
                   </tr>
                 </thead>
                 <tbody>

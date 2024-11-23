@@ -15,6 +15,7 @@ function Dashboard() {
   const [tempsname, settempsname] = useState();
   const [scheme, setscheme] = useState();
   const [submited, setsubmited] = useState();
+  const [submiteddate, setsubmiteddate] = useState();
 
   const User_id = localStorage.getItem("user_id");
   useEffect(() => {
@@ -172,9 +173,9 @@ function Dashboard() {
         {showaddbook && showbookdata && (
           <div className="container">
             <div className="signup-container">
-              <h1> Select Scheme,</h1>
+              <h1> Select Book-List</h1>
               <div className="signup-inputarea">
-                <label>Scheme Name</label>
+                <label>Book-List Name</label>
                 <select
                   className="input"
                   required
@@ -215,6 +216,7 @@ function Dashboard() {
                         className="eye"
                         onClick={() => {
                           console.log(i.scheamName);
+                          setsubmiteddate(i.createdAt);
                           settempsname(i.scheamName);
                           handlesetshowbookdata(i.scheamName);
                         }}
@@ -239,6 +241,7 @@ function Dashboard() {
           <BookData
             Scheme_name={tempsname}
             User_id={User_id}
+            submiteddate = {submiteddate}
             backtodashboard={backtodashboard}
           />
         )}
