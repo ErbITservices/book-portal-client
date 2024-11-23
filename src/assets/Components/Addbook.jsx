@@ -124,7 +124,7 @@ function Addbook({ schemename , backtodashboard }) {
          alert("You Reached Maximum book Limit");
     }
     
-    else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>=Number(schemedata.total_book_price)) {
+    else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
       alert("You Reached Maximum price Limit Of Set");
     }
     else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
@@ -157,6 +157,7 @@ function Addbook({ schemename , backtodashboard }) {
           ISBN: "",
           BookName: "",
           BookNameGuj: "",
+          BookPages: "",
           AuthorName: "",
           AuthorNameGuj: "",
           PublisherName: "",
@@ -169,8 +170,9 @@ function Addbook({ schemename , backtodashboard }) {
           Subject: "",
           PubYear: "",
           Category: "",
-          BookPages: "",
-          userId: "",
+          schemename: schemename,
+          Email: email,
+          userId: User_id,
         });
       }
 
@@ -216,7 +218,7 @@ function Addbook({ schemename , backtodashboard }) {
     if (Number(schemedata.max_book_number) <= booklist.length) {
       alert("You Reached Maximum book Limit");
  }
- else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>=Number(schemedata.total_book_price)) {
+ else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
    alert("You Reached Maximum price Limit Of Set");
  }
  else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
@@ -238,26 +240,24 @@ function Addbook({ schemename , backtodashboard }) {
     setedit(false)
     setbookdata({
       ISBN: "",
-      BookName: "",
-      BookNameGuj: "",
-      AuthorName: "",
-      AuthorNameGuj: "",
-      PublisherName: "",
-      Price: "",
-      Discribption: "",
-      Size: "",
-      Binding: "",
-      Weight: "",
-      Language: "",
-      Subject: "",
-      PubYear: "",
-      Category: "",
-      FrontImage: "",
-      BackImage: "",
-      FImage: "",
-      BImage: "",
-      BookPages: "",
-      userId: "",
+    BookName: "",
+    BookNameGuj: "",
+    BookPages: "",
+    AuthorName: "",
+    AuthorNameGuj: "",
+    PublisherName: "",
+    Price: "",
+    Discribption: "",
+    Size: "",
+    Binding: "",
+    Weight: "",
+    Language: "",
+    Subject: "",
+    PubYear: "",
+    Category: "",
+    schemename: schemename,
+    Email: email,
+    userId: User_id,
     });
     
     setbooklist([]);
@@ -271,9 +271,11 @@ function Addbook({ schemename , backtodashboard }) {
      }
     }
     setloader(false);
-    let count = 0;
+      let count = 0;
       for (let index = 0; index < res2.data.bookEntry.length; index++) {
         count += Number(res2.data.bookEntry[index].Price);
+        console.log(count);
+        
       }
       settotalprice(count);
   }
@@ -300,7 +302,7 @@ function Addbook({ schemename , backtodashboard }) {
           <>
           <div >
             <div className="Addbook-container">
-              <h1>Book Entry Of {schemename}</h1>
+              <h1>Book List For {schemename}</h1>
               <div className="book-info">
                 {booklist && schemedata && (
                   <>
@@ -310,11 +312,9 @@ function Addbook({ schemename , backtodashboard }) {
                     </h4>
                     <h4>Total Value Of Set {totalprice} / {schemedata.total_book_price} </h4>
                     <h4>
-                      Min Value Of Book  {schemedata.book_price}
+                      Book Value  {schemedata.book_price} - {schemedata.max_book_price}
                     </h4>
-                    <h4>
-                      Max Value Of Book  {schemedata.max_book_price}
-                    </h4>
+                    
                   </>
                 )}
               </div>
