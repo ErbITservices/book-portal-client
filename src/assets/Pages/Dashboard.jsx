@@ -12,7 +12,7 @@ function Dashboard() {
   const [showaddbook, setshowaddbook] = useState(true);
   const [showbookdata, setshowbookdata] = useState(true);
   const [schemename, setschemename] = useState({ schemename: "" });
-  const [tempsname,settempsname] = useState();
+  const [tempsname, settempsname] = useState();
   const [scheme, setscheme] = useState();
   const [submited, setsubmited] = useState();
 
@@ -24,18 +24,25 @@ function Dashboard() {
           `/api/v1/submited/alluser/${User_id}`
         );
         setsubmited(res2.data.data);
-        const res = await userRequest.get(`/api/v1/scheam/getScheam`);
-        setschemelist(res.data.allScheam);
+        const res = await userRequest.get(`/api/v1/scheam/getActiveScheam`);
+        setschemelist(res.data.Scheam
+        );
         let arr = [];
+        
+        console.log(res.data);
         if (res2.data.data.length > 0) {
-          for (let index = 0; index < res.data.allScheam.length; index++) {
+          for (let index = 0; index < res.data.Scheam
+            .length; index++) {
             for (let i = 0; i < res2.data.data.length; i++) {
-              let temp = res.data.allScheam[index].scheam_name;
+              let temp = res.data.Scheam
+              [index].scheam_name;
 
               if (
                 res2.data.data[i].scheamName !=
-                  res.data.allScheam[index].scheam_name &&
-                !arr.includes(res.data.allScheam[index].scheam_name) &&
+                  res.data.Scheam
+                  [index].scheam_name &&
+                !arr.includes(res.data.Scheam
+                  [index].scheam_name) &&
                 !arr.includes(res2.data.data[i].scheamName)
               ) {
                 arr.push(temp);
@@ -43,8 +50,10 @@ function Dashboard() {
               }
               if (
                 (res2.data.data[i].scheamName ===
-                  res.data.allScheam[index].scheam_name &&
-                  arr.includes(res.data.allScheam[index].scheam_name)) ||
+                  res.data.Scheam
+                  [index].scheam_name &&
+                  arr.includes(res.data.Scheam
+                    [index].scheam_name)) ||
                 arr.includes(res2.data.data[i].scheamName)
               ) {
                 arr.pop(temp);
@@ -56,13 +65,15 @@ function Dashboard() {
           setscheme(arr);
         } else {
           console.log("in");
-          for (let index = 0; index < res.data.allScheam.length; index++) {
-            arr.push(res.data.allScheam[index].scheam_name);
+          for (let index = 0; index < res.data.Scheam
+            .length; index++) {
+            arr.push(res.data.Scheam
+              [index].scheam_name);
           }
           setscheme(arr);
         }
 
-        console.log(res.data.allScheam);
+        console.log(res.data);
 
         console.log(res2.data.data);
       } catch (error) {
@@ -71,6 +82,68 @@ function Dashboard() {
     };
     dataget();
   }, []);
+  async function handlerefresh() {
+      try {
+        const res2 = await userRequest.get(
+          `/api/v1/submited/alluser/${User_id}`
+        );
+        setsubmited(res2.data.data);
+        const res = await userRequest.get(`/api/v1/scheam/getActiveScheam`);
+        setschemelist(res.data.Scheam
+        );
+        let arr = [];
+        if (res2.data.data.length > 0) {
+          for (let index = 0; index < res.data.Scheam
+            .length; index++) {
+            for (let i = 0; i < res2.data.data.length; i++) {
+              let temp = res.data.Scheam
+              [index].scheam_name;
+
+              if (
+                res2.data.data[i].scheamName !=
+                  res.data.Scheam
+                  [index].scheam_name &&
+                !arr.includes(res.data.Scheam
+                  [index].scheam_name) &&
+                !arr.includes(res2.data.data[i].scheamName)
+              ) {
+                arr.push(temp);
+                console.log(temp);
+              }
+              if (
+                (res2.data.data[i].scheamName ===
+                  res.data.Scheam
+                  [index].scheam_name &&
+                  arr.includes(res.data.Scheam
+                    [index].scheam_name)) ||
+                arr.includes(res2.data.data[i].scheamName)
+              ) {
+                arr.pop(temp);
+                console.log("mihir");
+              }
+            }
+          }
+
+          setscheme(arr);
+        } else {
+          console.log("in");
+          for (let index = 0; index < res.data.Scheam
+            .length; index++) {
+            arr.push(res.data.Scheam
+              [index].scheam_name);
+          }
+          setscheme(arr);
+        }
+
+        console.log(res.data.Scheam
+        );
+
+        console.log(res2.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    
+  }
   function handleinput(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -79,23 +152,18 @@ function Dashboard() {
   }
   function handlecontinue() {
     console.log(schemename);
-    
+
     if (schemename.schemename != "") {
       setshowaddbook(false);
-
-      
     }
   }
   function handlesetshowbookdata(i) {
-   
-    setshowbookdata(false)
-
+    setshowbookdata(false);
   }
   function backtodashboard() {
-    
-    setschemename({schemename: ""})
-    setshowaddbook(true)
-    setshowbookdata(true)
+    setschemename({ schemename: "" });
+    setshowaddbook(true);
+    setshowbookdata(true);
   }
   return (
     <>
@@ -142,10 +210,15 @@ function Dashboard() {
                         {i.submissionDate.slice(0, 10)}
                       </td>
                       <td key={i.scheamName}> {i.scheamName}</td>
-                      <td key={index} className="eye" onClick={()=>{
-                        console.log(i.scheamName);
-                         settempsname(i.scheamName)
-                        handlesetshowbookdata(i.scheamName)}}>
+                      <td
+                        key={index}
+                        className="eye"
+                        onClick={() => {
+                          console.log(i.scheamName);
+                          settempsname(i.scheamName);
+                          handlesetshowbookdata(i.scheamName);
+                        }}
+                      >
                         <RemoveRedEyeOutlinedIcon />
                       </td>
                     </tr>
@@ -154,8 +227,21 @@ function Dashboard() {
             </table>
           </div>
         )}
-        {!showaddbook && <Addbook schemename={schemename.schemename} backtodashboard={backtodashboard} />}
-        {!showbookdata && <BookData Scheme_name={tempsname} User_id={User_id} backtodashboard={backtodashboard}/>}
+        {!showaddbook && (
+          <Addbook
+            schemename={schemename.schemename}
+            setschemename={setschemename}
+            backtodashboard={backtodashboard}
+            handlerefresh={handlerefresh}
+          />
+        )}
+        {!showbookdata && (
+          <BookData
+            Scheme_name={tempsname}
+            User_id={User_id}
+            backtodashboard={backtodashboard}
+          />
+        )}
       </div>
       <Footer />
     </>

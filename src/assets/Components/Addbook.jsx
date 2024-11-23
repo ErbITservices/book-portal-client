@@ -11,7 +11,7 @@ import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspace
 import Submitdilog from "../Dilogs/Submitdilog";
 import Deletedilog from "../Dilogs/Deletedilog";
 
-function Addbook({ schemename , backtodashboard }) {
+function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) {
 
   const [categorylist, setcategorylist] = useState();
   const [subjectlist, setsubjectlist] = useState();
@@ -287,6 +287,7 @@ function Addbook({ schemename , backtodashboard }) {
       const res = await userRequest.post("/api/v1/submited/addSubmit", {scheamName : schemename, userId : User_id},
       );
       backtodashboard()
+      handlerefresh()
     }
     else{
       alert("Please Add Some Books For Submission")
@@ -299,7 +300,7 @@ function Addbook({ schemename , backtodashboard }) {
       <div className="main-container">
         {/* <Navbar /> */}
         {loader && <Loader />}
-        {submitdilog && <Submitdilog handlesubmit={handlesubmit} setsubmitdilog={setsubmitdilog}/>}
+        {submitdilog && <Submitdilog handlesubmit={handlesubmit} setschemename={setschemename} setsubmitdilog={setsubmitdilog}/>}
         {deletedilog && <Deletedilog handledelete={handledelete} deletedata={deletedata}  setdeletedilog={setdeletedilog}/>}
         <div className="addbook-main-container">
           <>
