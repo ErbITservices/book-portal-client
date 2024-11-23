@@ -6,6 +6,7 @@ import { userRequest } from "../../axiosReqMethods";
 import Addbook from "../Components/Addbook";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import BookData from "../Components/BookData";
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 
 function Dashboard() {
   const [schemelist, setschemelist] = useState();
@@ -175,7 +176,7 @@ function Dashboard() {
             <div className="signup-container">
               <h1> Select Book-List</h1>
               <div className="signup-inputarea">
-                <label>Book-List Name</label>
+                <label>List Name</label>
                 <select
                   className="input"
                   required
@@ -189,15 +190,15 @@ function Dashboard() {
               </div>
 
               <button onClick={handlecontinue} type="submit" className="btn">
-                Continue
+                 Enter <ArrowForwardOutlinedIcon/>
               </button>
             </div>
             <table>
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Submission Date</th>
-                  <th> Scheme Name</th>
+                  <th> List Name</th>
+                  <th> Submission Date</th>
                   <th> Download</th>
                 </tr>
               </thead>
@@ -206,11 +207,12 @@ function Dashboard() {
                   submited.map((i, index) => (
                     <tr>
                       <td>{index + 1}</td>
+                      
+                      <td key={i.scheamName}> {i.scheamName}</td>
                       <td key={i.submissionDate}>
                         {" "}
                         {i.submissionDate.slice(0, 10)}
                       </td>
-                      <td key={i.scheamName}> {i.scheamName}</td>
                       <td
                         key={index}
                         className="eye"

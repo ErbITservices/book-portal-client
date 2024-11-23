@@ -7,6 +7,11 @@
   font-weight: 300;
   font-style: normal;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .background {
   background-image: url("https://gray-kgns-prod.gtv-cdn.com/resizer/v2/TXF3QODTOJOGDLC6MUKHHGWIQM.jpg?auth=9ce3c8a3ac9430be4956268a2eafa00b5564205f618da13d15fdb597dbb7129f&width=1600&height=900&smart=true");
   background-repeat: no-repeat;
@@ -171,6 +176,7 @@ p {
   border: none;
   font-weight: 400;
   max-width: 200px;
+  font-size: 15px;
 }
 .btn:hover{
   transition: ease all 0.3s;
@@ -264,7 +270,7 @@ box-shadow: 0 0 10px #2196f3;
 }
 
 .Addbook-inputarea select{
-  min-width: 173px;
+  min-width: 165px;
 }
 
 .addbook-main-container{
@@ -466,7 +472,7 @@ table, th, td {
 .sort-input {
   border: 0.5px solid rgba(0, 0, 0, 0.842);
   border-radius: 5px;
-  padding: 10px;
+  padding: 6px;
   background: transparent;
   width: 150px;
 }

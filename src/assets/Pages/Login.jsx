@@ -54,8 +54,7 @@ function Login() {
         <div className="container">
           <div className="login-container">
             <h1>
-              {" "}
-              Welcome Back, <br /> Sign In
+               Sign In
             </h1>
             <label>Email Address</label>
             <input

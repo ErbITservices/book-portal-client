@@ -130,10 +130,10 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
       alert("You Reached Maximum price Limit Of Set");
     }
     else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
-      alert("Your Book Can Not Be Cheaper Than Minimum Book Price");
+      alert(`Your Book Can Not Be Cheaper Than ${schemedata.book_price}`);
     }
     else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
-      alert("Your Book Can Not Be Expensive Than Maximum Book Price");
+      alert(`Your Book Can Not Be Expensive Than ${schemedata.max_book_price}`);
     }
     else if (Number(bookdata.ISBN.length) < Number(13) || Number(bookdata.ISBN.length) > 13) {
       alert("Please Enter 13 Digit ISBN Number");
@@ -220,16 +220,16 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   async function handleedit(i) {
     // list.remove(i);
     if (Number(schemedata.max_book_number) <= booklist.length) {
-      alert("You Reached Maximum book Limit");
+      alert(`You Can Not Add More Than ${schemedata.max_book_number} Books`);
  }
  else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
    alert("You Reached Maximum price Limit Of Set");
  }
  else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
-   alert("Your Book Can Not Be Cheaper Than Minimum Book Price");
+   alert(`Your Book Can Not Be Cheaper Than ${schemedata.book_price}`);
  }
  else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
-   alert("Your Book Can Not Be Expensive Than Maximum Book Price");
+   alert(`Your Book Can Not Be Expensive Than ${schemedata.max_book_price}`);
  }
  else if (Number(bookdata.ISBN.length) < 13 || Number(bookdata.ISBN.length) > 13) {
    alert("Please Enter 13 Digit ISBN Number");
@@ -344,7 +344,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
               </div>
           
               <div className="Addbook-inputarea">
-                <label>ISBN</label>
+                <label>ISBN : </label>
                 <input
                   required
                   name="ISBN"
@@ -357,7 +357,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Book Name</label>
+                <label>Book Name : </label>
                 <input
                   required
                   className="input"
@@ -368,7 +368,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Book Name (Guj) </label>
+                <label>Book Name (Guj) : </label>
                 <input
                   required
                   className="input"
@@ -379,7 +379,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Author Name </label>
+                <label>Author Name : </label>
                 <input
                   required
                   className="input"
@@ -390,7 +390,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Author Name (Guj) </label>
+                <label>Author Name (Guj) : </label>
                 <input
                   required
                   className="input"
@@ -401,7 +401,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label> Price </label>
+                <label> Price : </label>
                 <input
                   required
                   className="input"
@@ -412,7 +412,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-              <label>Subject </label>
+              <label>Subject : </label>
                 <select
                   required
                   className="input"
@@ -431,7 +431,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 
               </div>
               <div className="Addbook-inputarea">
-              <label> Category </label>
+              <label> Category : </label>
                 <select
                   required
                   className="input"
@@ -448,7 +448,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
               </div>
               
               <div className="Addbook-inputarea">
-                <label> Publisher Name </label>
+                <label> Publisher Name : </label>
                 <input
                   required
                   className="input"
@@ -459,7 +459,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label> Pub Year </label>
+                <label> Pub Year : </label>
                 <input
                   required
                   className="sort-input"
@@ -470,7 +470,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Language </label>
+                <label>Language : </label>
                 <select
                   required
                   className="input"
@@ -486,7 +486,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 </select>
               </div>
               <div className="Addbook-inputarea">
-              <label>Number Of Pages </label>
+              <label>Number Of Pages : </label>
                 <input
                   required
                   className="sort-input"
@@ -497,7 +497,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Weight </label>
+                <label>Weight : </label>
                 <input
                   required
                   className="sort-input"
@@ -509,7 +509,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 
               </div>
               <div className="Addbook-inputarea">
-                <label>Binding</label>
+                <label>Binding : </label>
                 <input
                   required
                   className="sort-input"
@@ -520,7 +520,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 />
               </div>
               <div className="Addbook-inputarea">
-                <label>Size</label>
+                <label>Size : </label>
                 <input
                   required
                   className="sort-input"
@@ -537,7 +537,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
               
               
               <div className="large-Addbook-inputarea">
-                <label> Discription </label>
+                <label> Discription : </label>
                 <textarea
                   required
                   className="large-input"
@@ -578,18 +578,18 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                     {/* <th>Front Image</th> */}
                     {/* <th>Back Image</th> */}
                     
-                    <th> ISBN : </th>
-                    <th>Book Name : </th>
+                    <th> ISBN  </th>
+                    <th>Book Name  </th>
                     
-                    <th> Author Name : </th>
+                    <th> Author Name  </th>
                     {/* <th>Book Name Guj</th> */}
-                    <th>Price : </th>
+                    <th>Price  </th>
                     
-                    <th> Subject : </th>
-                    <th> Category : </th>
+                    <th> Subject  </th>
+                    <th> Category  </th>
                     
-                    <th> Edit : </th>
-                    <th> Delete : </th>
+                    <th> Edit  </th>
+                    <th> Delete  </th>
                   </tr>
                 </thead>
                 <tbody>
