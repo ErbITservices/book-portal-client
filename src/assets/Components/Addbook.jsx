@@ -199,6 +199,7 @@ function Addbook({ schemename , backtodashboard }) {
 
      console.log(res2.data.bookEntry);
 
+     setbooklist([]);
      if (res2.data.bookEntry) {
        setbooklist(res2.data.bookEntry);
      }
