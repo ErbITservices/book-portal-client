@@ -243,7 +243,7 @@ function Dashboard() {
           />
         )}
       </div>
-      <Footer />
+     {/* <Footer /> */}
     </>
   );
 }

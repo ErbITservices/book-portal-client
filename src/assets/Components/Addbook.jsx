@@ -305,7 +305,23 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
           <>
           <div >
             <div className="Addbook-container">
+              <div className="btn-container"><div className="btn-container">
+              <button onClick={()=>{
+                backtodashboard()
+              }} className="back btn">
+                <KeyboardBackspaceOutlinedIcon />
+                DashBoard
+              </button>
+              
               <h1>Book List For {schemename}</h1>
+              <button onClick={()=> setsubmitdilog(true)} className="submit btn">
+              <PublishOutlinedIcon />
+              Submit
+            </button>
+            </div>
+            
+            </div>
+              {/* <h1>Book List For {schemename}</h1> */}
               <div className="book-info">
                 {booklist && schemedata && (
                   <>
@@ -480,7 +496,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 <input
                   required
                   className="sort-input"
-                  type="text"
+                  type="number"
                   onChange={handleinput}
                   name="Weight"
                   value={bookdata.Weight}
@@ -503,7 +519,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 <input
                   required
                   className="sort-input"
-                  type="number"
+                  type="text"
                   onChange={handleinput}
                   name="Size"
                   value={bookdata.Size}
@@ -528,16 +544,8 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
               
             </div>
             {!edit && (<div className="btn-container">
-              <button onClick={()=>{
-                backtodashboard()
-              }} className="back btn">
-                <KeyboardBackspaceOutlinedIcon />
-                DashBoard
-              </button>
-              <button onClick={()=> setsubmitdilog(true)} className="submit btn">
-              <PublishOutlinedIcon />
-              Submit
-            </button>
+              
+              
               <button onClick={handleadd} className="btn">
                 <AddOutlinedIcon />
                 Add
