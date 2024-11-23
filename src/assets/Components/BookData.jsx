@@ -55,25 +55,29 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
               {/* <h1>Added Book List</h1> */}
               <div ref={pdfref}>
                 
-              <div> <h1>Book List Of {Scheme_name}</h1> </div>
+              <div className="pdf-info"> <h2>Book List Of {Scheme_name}</h2> 
+              <h2>User Name {localStorage.getItem("username")}</h2></div>
               <table >
                 
                 <thead>
                   <tr>
                     {/* <th>Front Image</th> */}
                     {/* <th>Back Image</th> */}
+                    
+                    <th> ISBN</th>
                     <th>Book Name</th>
+                    
+                    <th> AuthorName</th>
+                    <th> PublisherName</th>
                     {/* <th>Book Name Guj</th> */}
                     <th>Price</th>
-                    <th> ISBN</th>
                     <th> Category</th>
-                    <th> Language</th>
-                    <th> PublisherName</th>
-                    <th> Size</th>
+                    
                     <th> Subject</th>
+                    <th> Language</th>
+                    <th> Size</th>
                     <th> Weight</th>
                     <th> Binding</th>
-                    <th> AuthorName</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -81,21 +85,18 @@ function BookData({User_id,Scheme_name, backtodashboard}) {
                     booklist.map((i) => (
                       <tr>
                        
+                       <td key={i.ISBN}> {i.ISBN}</td>
                         <td key={i.BookName}> {i.BookName}</td>
-
-                        {/* <td key={i.BookNameGuj}> {i.BookNameGuj}</td> */}
-                        <td key={i.Price}> {i.Price}</td>
-                        <td key={i.ISBN}> {i.ISBN}</td>
-                        <td key={i.Category}> {i.Category}</td>
-                        <td key={i.Language}> {i.Language}</td>
+                        <td key={i.AuthorName}> {i.AuthorName}</td>
                         <td key={i.PublisherName}> {i.PublisherName}</td>
-                        <td key={i.Size}> {i.Size}</td>
+                        <td key={i.Price}> {i.Price}</td>
+                        <td key={i.Category}> {i.Category}</td>
                         <td key={i.Subject}> {i.Subject}</td>
+                        <td key={i.Language}> {i.Language}</td>
+                        <td key={i.Size}> {i.Size}</td>
                         <td key={i.Weight}> {i.Weight}</td>
                         <td key={i.Binding}> {i.Binding}</td>
-                        <td key={i.AuthorName}> {i.AuthorName}</td>
-                        {/* <td key={i.AuthorNameGuj}> {i.AuthorNameGuj}</td> */}
-                        {/* <td key={i.Discribption}> {i.Discribption}</td> */}
+                        
                        
                       </tr>
                     ))}

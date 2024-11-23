@@ -65,7 +65,13 @@ p {
 .footer-address p {
   text-align: end;
 }
-
+.pdf-info{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 40%;
+}
 /* navbar */
 
 .navbar-container {
