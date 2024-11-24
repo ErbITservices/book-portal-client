@@ -5,10 +5,9 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { userRequest } from "../../axiosReqMethods";
 
-function Login() {
+function ForgotPassword() {
   const [userdata, setuserdata] = useState({
     email: "",
-    password:""
   });
   
   const navigator = useNavigate();
@@ -23,7 +22,7 @@ function Login() {
      console.log(userdata);
    }
   async function handlesubmit() {
-    try{const res = await userRequest.post("/api/v1/admin/login", {
+    try{const res = await userRequest.post("/api/v1/admin/sendpasswordlink", {
         userdata,
     });
     
@@ -32,29 +31,25 @@ function Login() {
     if (res.status === 200) {
       setuserdata({
         email: "",
-        password: "",
       });
       
-        localStorage.setItem("username", res.data.user.username);
-        localStorage.setItem("user_id", res.data.user.id);
-        // localStorage.setItem("district");
-        localStorage.setItem("email", res.data.user.email);
-        localStorage.setItem("bookportellogin", "true");
-      navigator("/Dashboard");
+        
+      alert("Check Your Register Email");
+      navigator("/book-list");
     }
     }
     catch (e) {
-        alert("Email or Password Invalid");
+        alert("Email Is  Invalid");
       }
   }
   return (
     <>
       <div className="background">
         {/* <Navbar /> */}
-        <div className="background">
+        <div className="container">
           <div className="login-container">
             <h1>
-               Sign In
+               Send Forgot Password Link
             </h1>
             <label>Email Address</label>
             <input
@@ -65,27 +60,14 @@ function Login() {
               onChange={handleinput}
               value={userdata.email}
             />
-            <label>Password</label>
-            <input
-              className="input"
-              type="password"
-              placeholder="Book@123"
-              name="password"
-              onChange={handleinput}
-              value={userdata.password}
-            />
-              <button type="submit" className="btn" onClick={handlesubmit}>
-                Sign In
-              </button>
-              <div className="link-container">
-              <Link to="/ForgotPassword">
-              <p>Forgot Password</p>
-            </Link>
-            <Link to="/Registration">
-              <p>Sign Up</p>
-            </Link>
-              </div>
             
+              <button type="submit" className="btn" onClick={handlesubmit}>
+                Send
+              </button>
+
+            <Link to="/book-list">
+              <p>Login</p>
+            </Link>
           </div>
         </div>
 
@@ -94,4 +76,4 @@ function Login() {
     </>
   );
 }
-export default Login;
+export default ForgotPassword;

@@ -6,6 +6,7 @@
   font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-style: normal;
+  
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -17,6 +18,14 @@ input::-webkit-inner-spin-button {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  width: 100%;
+  min-height: 690px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .container {
   width: 100%;
@@ -491,6 +500,16 @@ form{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.link-container{
+  display: flex;
+  gap: 170px;
+}
+.link-container p{
+  width: 100%;
+}
+h1 , h2, h3 , h4 , p , label {
+  color: rgb(80, 80, 80);
 }
 
 @media (max-width: 440px) {

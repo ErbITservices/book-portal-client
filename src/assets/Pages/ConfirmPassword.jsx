@@ -1,16 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { userRequest } from "../../axiosReqMethods";
 
-function Login() {
+function ConfirmPassword() {
   const [userdata, setuserdata] = useState({
-    email: "",
+    cpassword:"",
     password:""
   });
   
+  const { id, token } = useParams();
   const navigator = useNavigate();
    function handleinput(e) {
      const name = e.target.name;
@@ -23,48 +24,38 @@ function Login() {
      console.log(userdata);
    }
   async function handlesubmit() {
-    try{const res = await userRequest.post("/api/v1/admin/login", {
+    if (userdata.password === userdata.cpassword) {
+      try{const res = await userRequest.post(`/api/v1/admin/${id}/${token}`, {
         userdata,
     });
     
     console.log(res);
 
     if (res.status === 200) {
-      setuserdata({
-        email: "",
-        password: "",
-      });
+      alert("Password Updated")
       
-        localStorage.setItem("username", res.data.user.username);
-        localStorage.setItem("user_id", res.data.user.id);
-        // localStorage.setItem("district");
-        localStorage.setItem("email", res.data.user.email);
-        localStorage.setItem("bookportellogin", "true");
-      navigator("/Dashboard");
+        
+      navigator("/book-list");
     }
     }
     catch (e) {
         alert("Email or Password Invalid");
       }
+    }
+    else{
+      alert("Confirm Password Not Matched With Password")
+    }
+    
   }
   return (
     <>
       <div className="background">
         {/* <Navbar /> */}
-        <div className="background">
+        <div className="container">
           <div className="login-container">
             <h1>
                Sign In
             </h1>
-            <label>Email Address</label>
-            <input
-              className="input"
-              type="text"
-              placeholder="book@example.com"
-              name="email"
-              onChange={handleinput}
-              value={userdata.email}
-            />
             <label>Password</label>
             <input
               className="input"
@@ -74,17 +65,19 @@ function Login() {
               onChange={handleinput}
               value={userdata.password}
             />
+            <label>Confirm Password</label>
+            <input
+              className="input"
+              type="password"
+              placeholder="Book@123"
+              name="cpassword"
+              onChange={handleinput}
+              value={userdata.cpassword}
+            />
               <button type="submit" className="btn" onClick={handlesubmit}>
                 Sign In
               </button>
-              <div className="link-container">
-              <Link to="/ForgotPassword">
-              <p>Forgot Password</p>
-            </Link>
-            <Link to="/Registration">
-              <p>Sign Up</p>
-            </Link>
-              </div>
+
             
           </div>
         </div>
@@ -94,4 +87,4 @@ function Login() {
     </>
   );
 }
-export default Login;
+export default ConfirmPassword;

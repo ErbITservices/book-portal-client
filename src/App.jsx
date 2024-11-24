@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./assets/Pages/Dashboard";
 import Protected from "./assets/Pages/Protected";
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import ForgotPassword from "./assets/Pages/ForgotPassword";
+import ConfirmPassword from "./assets/Pages/ConfirmPassword";
 // import Addbook from "./assets/Pages/Addbook";
 
 function App() {
@@ -26,7 +28,17 @@ function App() {
             path="/Registration"
             element={<Protected Components={Registration} />}
           ></Route>
+          <Route
+            path="/Forgotpassword"
+            element={<Protected Components={ForgotPassword} />}
+          ></Route>
+          <Route
+            path="/ConfirmPassword/:id/:token"
+            element={<ConfirmPassword />}
+          ></Route>
+          {/* <Route path="/ConfirmPassword/:id/:token" element={<Protected Components={ConfirmPassword} />} ></Route> */}
         </Routes>
+        
       </BrowserRouter>
     </>
   );
