@@ -20,7 +20,8 @@ function Navbar() {
       <div className="navbar-container">
         <div className="logo">
           {" "}
-          <span>Book</span> Portel
+          <img src="public\gpmpng.png" alt="logo"  className="logo"/>
+          
         </div>
         <div className="login-info">
           <AccountCircleOutlinedIcon />

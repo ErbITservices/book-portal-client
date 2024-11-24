@@ -53,6 +53,18 @@ function BookData({User_id,Scheme_name, backtodashboard ,submiteddate}) {
     <div className="userlist-container">
     {loader && <Loader />}
               {/* <h1>Added Book List</h1> */}
+              <div className="btn-container">
+              <button onClick={()=>{
+                backtodashboard()
+              }} className="back btn">
+                <KeyboardBackspaceOutlinedIcon />
+                DashBoard
+              </button>
+                <button onClick={downloadpdf} className="btn">
+                <DownloadIcon />
+                Download Pdf
+              </button>
+              </div>
               <div ref={pdfref}>
               <h1>Book List Of {Scheme_name}</h1> 
               <div className="pdf-info"> 
@@ -113,18 +125,7 @@ function BookData({User_id,Scheme_name, backtodashboard ,submiteddate}) {
               </table>
               </div>
               
-              <div className="btn-container">
-              <button onClick={()=>{
-                backtodashboard()
-              }} className="back btn">
-                <KeyboardBackspaceOutlinedIcon />
-                DashBoard
-              </button>
-                <button onClick={downloadpdf} className="btn">
-                <DownloadIcon />
-                Download Pdf
-              </button>
-              </div>
+              
               
             </div></>
   )
