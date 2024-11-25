@@ -55,7 +55,7 @@ function Registration() {
   return (
     <>
       <div className="background">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="container">
           <div className="signup-container">
             <h1>Welcome, Sign Up</h1>

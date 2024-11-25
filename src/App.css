@@ -461,7 +461,9 @@ table, th, td {
   box-shadow: 0 0 10px #0541ce;
 }
 .submit{
-  background-color: #00c04b;
+  /* background-color: #00c04b; */
+  background: transparent;
+  border: 1px solid black;
 }
 .submit:hover{
   
@@ -497,7 +499,9 @@ table, th, td {
   display: none;
 }
 .back{
-  background-color: rgb(178, 192, 54);
+  /* background-color: rgb(178, 192, 54); */
+  background: transparent;
+  border: 1px solid black;
 }
 .back:hover{
   background-color: rgb(154, 154, 23);

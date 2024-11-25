@@ -20,7 +20,7 @@ function Navbar() {
       <div className="navbar-container">
         <div className="logo">
           {" "}
-          <img src="public\gpmpng.png" alt="logo"  className="logo"/>
+          <img src="\gpmpng.png" alt="logo"  className="logo"/>
           
         </div>
         <div className="login-info">
