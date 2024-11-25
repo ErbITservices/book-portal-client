@@ -34,12 +34,13 @@ function ConfirmPassword() {
     if (res.status === 200) {
       alert("Password Updated")
       
+      alert("Your Password is Reset Successfully");
         
       navigator("/book-list");
     }
     }
     catch (e) {
-        alert("Email or Password Invalid");
+        alert("Try Again...");
       }
     }
     else{

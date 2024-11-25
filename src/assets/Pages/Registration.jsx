@@ -43,7 +43,13 @@ function Registration() {
           cpassword: "",
         }
         );
+        
+      alert("You Register Successfully");
         navigator("/book-list")
+      }
+      else{
+        
+      alert("You Can Not Same Email And Contact Name In Multiple Accouts");
       }
     }
     else {

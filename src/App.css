@@ -334,12 +334,15 @@ td{
   height: fit-content;
   font-weight: 200;
   font-size: 15px;
+  color: rgb(44, 43, 43);
 }
 th{
   background-color: grey;
   font-weight: 500;
   padding: 5px;
   font-weight: 400;
+  
+  color: rgb(45, 45, 45);
 }
 table, th, td {
   border: 1px solid black;
@@ -521,7 +524,7 @@ form{
   width: 100%;
 }
 h1 , h2, h3 , h4 , p , label {
-  color: rgb(80, 80, 80);
+  color: rgb(57, 57, 57);
 }
 
 @media (max-width: 440px) {
