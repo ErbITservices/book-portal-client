@@ -299,15 +299,21 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     setloader(false);
   }
   async function handlesubmit() {
-    if (booklist.length>0) {
+    if (booklist.length > 0) {
+      setsubmitdilog(false);
+      setloader(true)
       const res = await userRequest.post("/api/v1/submited/addSubmit", {scheamName : schemename, userId : User_id},
       );
       backtodashboard()
       handlerefresh()
+      
+    setloader(false);
     }
     else{
       alert("Please Add Some Books For Submission")
       setsubmitdilog(false)
+      
+    setloader(false);
     }
     
   }

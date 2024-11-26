@@ -66,10 +66,10 @@ function BookData({User_id,Scheme_name, backtodashboard ,submiteddate}) {
               </button>
               </div>
               <div ref={pdfref}>
-              <h1>Book List Of {Scheme_name}</h1> 
+              <h1>Book List Of  {Scheme_name}</h1> 
               <div className="pdf-info"> 
-              <h3>User Name {localStorage.getItem("username")}</h3>
-              <h3>{submiteddate.slice(0,10)}</h3>
+              <h3>User Name : {localStorage.getItem("username")}</h3>
+              <h3>Submission Date : {submiteddate.slice(0,10)}</h3>
               </div>
               <table className="data-table" >
                 
