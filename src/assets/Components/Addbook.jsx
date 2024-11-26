@@ -141,51 +141,63 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     else if(bookdata.ISBN === "" || bookdata.AuthorName==="" || bookdata.AuthorNameGuj===""|| bookdata.Binding===""|| bookdata.BookName===""|| bookdata.BookNameGuj===""|| bookdata.BookPages===""|| bookdata.Category===""|| bookdata.Discribption===""|| bookdata.ISBN===""|| bookdata.Language===""|| bookdata.Price===""|| bookdata.PubYear===""|| bookdata.PublisherName===""|| bookdata.Size===""|| bookdata.Subject===""|| bookdata.Weight===""){
       alert("All Field Are Require");
     }
-     else {
-      setloader(true);
-      const res = await userRequest.post("/api/v1/bookeEntry/addBook", {
-        bookdata,
-      });
+      else if (
+        Number(bookdata.Price) <= 0 ||
+        Number(bookdata.BookPages) <= 0 ||
+        Number(bookdata.PubYear) <= 0 ||
+        Number(bookdata.Weight) <= 0
+    ) {
+      alert("Any Number Value Can Not Be Nagative");
+      } else {
+        try {
+          setloader(true);
+          const res = await userRequest.post("/api/v1/bookeEntry/addBook", {
+            bookdata,
+          });
 
-      const res2 = await userRequest.get(
-        `/api/v1/bookeEntry/getBook/${localStorage.getItem(
-          "user_id"
-        )}/${schemename}`
-      );
-      setbooklist(res2.data.bookEntry);
-      
-      if (res.status === 200) {
-        setbookdata({
-          ISBN: "",
-          BookName: "",
-          BookNameGuj: "",
-          BookPages: "",
-          AuthorName: "",
-          AuthorNameGuj: "",
-          PublisherName: "",
-          Price: "",
-          Discribption: "",
-          Size: "",
-          Binding: "",
-          Weight: "",
-          Language: "",
-          Subject: "",
-          PubYear: "",
-          Category: "",
-          schemename: schemename,
-          Email: email,
-          userId: User_id,
-          User_name:User_name
-        });
-      }
+          const res2 = await userRequest.get(
+            `/api/v1/bookeEntry/getBook/${localStorage.getItem(
+              "user_id"
+            )}/${schemename}`
+          );
+          setbooklist(res2.data.bookEntry);
 
-      setloader(false);
-      let count = 0;
-      for (let index = 0; index < res2.data.bookEntry.length; index++) {
-        count += Number(res2.data.bookEntry[index].Price);
+          if (res.status === 200) {
+            setbookdata({
+              ISBN: "",
+              BookName: "",
+              BookNameGuj: "",
+              BookPages: "",
+              AuthorName: "",
+              AuthorNameGuj: "",
+              PublisherName: "",
+              Price: "",
+              Discribption: "",
+              Size: "",
+              Binding: "",
+              Weight: "",
+              Language: "",
+              Subject: "",
+              PubYear: "",
+              Category: "",
+              schemename: schemename,
+              Email: email,
+              userId: User_id,
+              User_name: User_name,
+            });
+          }
+
+          setloader(false);
+          let count = 0;
+          for (let index = 0; index < res2.data.bookEntry.length; index++) {
+            count += Number(res2.data.bookEntry[index].Price);
+          }
+          settotalprice(count);
+        } catch (error) {
+          alert("Try Again.......");
+          setloader(false);
+        }
       }
-      settotalprice(count);
-    }
 
    
   }
