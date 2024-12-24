@@ -322,271 +322,306 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
       <div className="main-container">
         {/* <Navbar /> */}
         {loader && <Loader />}
-        {submitdilog && <Submitdilog handlesubmit={handlesubmit} setschemename={setschemename} setsubmitdilog={setsubmitdilog}/>}
-        {deletedilog && <Deletedilog handledelete={handledelete} deletedata={deletedata}  setdeletedilog={setdeletedilog}/>}
+        {submitdilog && (
+          <Submitdilog
+            handlesubmit={handlesubmit}
+            setschemename={setschemename}
+            setsubmitdilog={setsubmitdilog}
+          />
+        )}
+        {deletedilog && (
+          <Deletedilog
+            handledelete={handledelete}
+            deletedata={deletedata}
+            setdeletedilog={setdeletedilog}
+          />
+        )}
         <div className="addbook-main-container">
           <>
-          <div >
-            <div className="Addbook-container">
-              <div className="btn-container"><div className="btn-container">
-              <button onClick={()=>{
-                backtodashboard()
-              }} className="back btn">
-                <KeyboardBackspaceOutlinedIcon />
-                DashBoard
-              </button>
-              
-              <h1>Book List For {schemename}</h1>
-              <button onClick={()=> setsubmitdilog(true)} className="submit btn">
-              <PublishOutlinedIcon />
-              Submit
-            </button>
-            </div>
-            
-            </div>
-              {/* <h1>Book List For {schemename}</h1> */}
-              <div className="book-info">
-                {booklist && schemedata && (
-                  <>
-                    <h4>
-                       Book Added {booklist.length} /{" "}
-                      {schemedata.max_book_number}
-                    </h4>
-                    <h4>Total Value Of Set {totalprice} / {schemedata.total_book_price} </h4>
-                    <h4>
-                      Book Value  {schemedata.book_price} - {schemedata.max_book_price}
-                    </h4>
-                    
-                  </>
-                )}
-              </div>
-          
-              <div className="Addbook-inputarea">
-                <label>ISBN : </label>
-                <input
-                  required
-                  name="ISBN"
-                  value={bookdata.ISBN}
-                  maxLength={13}
-                  minLength={13}
-                  onChange={handleinput}
-                  className="input"
-                  type="number"
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Book Name : </label>
-                <input
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="BookName"
-                  value={bookdata.BookName}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Book Name (Guj) : </label>
-                <input
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="BookNameGuj"
-                  value={bookdata.BookNameGuj}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Author Name : </label>
-                <input
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="AuthorName"
-                  value={bookdata.AuthorName}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Author Name (Guj) : </label>
-                <input
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="AuthorNameGuj"
-                  value={bookdata.AuthorNameGuj}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label> Price : </label>
-                <input
-                  required
-                  className="input"
-                  type="number"
-                  onChange={handleinput}
-                  name="Price"
-                  value={bookdata.Price}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-              <label>Subject : </label>
-                <select
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="Subject"
-                  value={bookdata.Subject}
-                >
-                  <option value={""}>Select</option>
-                  {subjectlist &&
-                    subjectlist.map((i) => (
-                      <option key={i.SubjectName}>{i.SubjectName}</option>
-                    ))}
+            <div>
+              <div className="Addbook-container">
+                <div className="btn-container">
+                  <div className="btn-container">
+                    <button
+                      onClick={() => {
+                        backtodashboard();
+                      }}
+                      className="back btn"
+                    >
+                      <KeyboardBackspaceOutlinedIcon />
+                      DashBoard
+                    </button>
 
-              </select>
-                
+                    <h1>Book List For {schemename}</h1>
+                    <button
+                      onClick={() => setsubmitdilog(true)}
+                      className="submit btn"
+                    >
+                      <PublishOutlinedIcon />
+                      Submit
+                    </button>
+                  </div>
+                </div>
+                {/* <h1>Book List For {schemename}</h1> */}
+                <div className="book-info">
+                  {booklist && schemedata && (
+                    <>
+                      <h4>
+                        Book Added {booklist.length} /{" "}
+                        {schemedata.max_book_number}
+                      </h4>
+                      <h4>
+                        Total Value Of Set {totalprice} /{" "}
+                        {schemedata.total_book_price}{" "}
+                      </h4>
+                      <h4>
+                        Book Value {schemedata.book_price} -{" "}
+                        {schemedata.max_book_price}
+                      </h4>
+                    </>
+                  )}
+                </div>
+
+                <div className="Addbook-inputarea">
+                  <label>ISBN : </label>
+                  <input
+                    required
+                    name="ISBN"
+                    value={bookdata.ISBN}
+                    maxLength={13}
+                    minLength={13}
+                    onChange={handleinput}
+                    className="input"
+                    type="number"
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Book Name : </label>
+                  <input
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="BookName"
+                    value={bookdata.BookName}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Book Name (Guj) : </label>
+                  <input
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="BookNameGuj"
+                    value={bookdata.BookNameGuj}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Author Name : </label>
+                  <input
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="AuthorName"
+                    value={bookdata.AuthorName}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Author Name (Guj) : </label>
+                  <input
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="AuthorNameGuj"
+                    value={bookdata.AuthorNameGuj}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label> Price : </label>
+                  <input
+                    required
+                    className="input"
+                    type="number"
+                    onChange={handleinput}
+                    name="Price"
+                    value={bookdata.Price}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Subject : </label>
+                  <select
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="Subject"
+                    value={bookdata.Subject}
+                  >
+                    <option value={""}>Select</option>
+                    {subjectlist &&
+                      subjectlist.map((i) => (
+                        <option key={i.SubjectName}>{i.SubjectName}</option>
+                      ))}
+                  </select>
+                </div>
+                <div className="Addbook-inputarea">
+                  <label> Category : </label>
+                  <select
+                    required
+                    className="input"
+                    onChange={handleinput}
+                    name="Category"
+                    value={bookdata.Category}
+                  >
+                    <option value={""}>Select</option>
+                    {categorylist &&
+                      categorylist.map((i) => (
+                        <option key={i.CategoryName}>{i.CategoryName}</option>
+                      ))}
+                  </select>
+                </div>
+
+                <div className="Addbook-inputarea">
+                  <label> Publisher Name : </label>
+                  <input
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="PublisherName"
+                    value={bookdata.PublisherName}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label> Pub Year : </label>
+                  <input
+                    required
+                    className="sort-input"
+                    type="number"
+                    onChange={handleinput}
+                    name="PubYear"
+                    value={bookdata.PubYear}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Language : </label>
+                  <select
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="Language"
+                    value={bookdata.Language}
+                  >
+                    <option>Select</option>
+                    <option>Gujarati</option>
+                    <option>Hindi</option>
+                    <option>English</option>
+                  </select>
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Number Of Pages : </label>
+                  <input
+                    required
+                    className="sort-input"
+                    type="number"
+                    onChange={handleinput}
+                    name="BookPages"
+                    value={bookdata.BookPages}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Weight : </label>
+                  <input
+                    required
+                    className="sort-input"
+                    type="number"
+                    onChange={handleinput}
+                    name="Weight"
+                    value={bookdata.Weight}
+                  />
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Binding : </label>
+                  {/* <input
+                    required
+                    className="sort-input"
+                    onChange={handleinput}
+                    type="text"
+                    name="Binding"
+                    value={bookdata.Binding}
+                  /> */}
+                  <select
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="Binding"
+                    value={bookdata.Binding}
+                  >
+                    <option value={""}>Select</option>
+                    <option value={"Hard"}>Hard</option>
+                    <option value={"Soft"}>Soft</option>
+                    <option value={"Center-Pin"}>Center-pin</option>
+                  </select>
+                </div>
+                <div className="Addbook-inputarea">
+                  <label>Size : </label>
+                  <input
+                    required
+                    className="sort-input"
+                    type="text"
+                    onChange={handleinput}
+                    name="Size"
+                    value={bookdata.Size}
+                  />
+                  <select
+                    required
+                    className="input"
+                    type="text"
+                    onChange={handleinput}
+                    name="Size"
+                    value={bookdata.Size}
+                  >
+                    <option value={""}>Select</option>
+                    <option value={"Demi"}>Demi</option>
+                    <option value={"Crown"}>Crown</option>
+                    <option value={"D.Crown"}>D.Crown</option>
+                    <option value={"Other"}>Other</option>
+                  </select>
+                </div>
+
+                <div className="large-Addbook-inputarea">
+                  <label> Discription : </label>
+                  <textarea
+                    required
+                    className="large-input"
+                    onChange={handleinput}
+                    name="Discribption"
+                    value={bookdata.Discribption}
+                  ></textarea>
+                </div>
               </div>
-              <div className="Addbook-inputarea">
-              <label> Category : </label>
-                <select
-                  required
-                  className="input"
-                  onChange={handleinput}
-                  name="Category"
-                  value={bookdata.Category}
-                >
-                  <option value={""}>Select</option>
-                  {categorylist &&
-                    categorylist.map((i) => (
-                      <option key={i.CategoryName}>{i.CategoryName}</option>
-                    ))}
-                </select>
-              </div>
-              
-              <div className="Addbook-inputarea">
-                <label> Publisher Name : </label>
-                <input
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="PublisherName"
-                  value={bookdata.PublisherName}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label> Pub Year : </label>
-                <input
-                  required
-                  className="sort-input"
-                  type="number"
-                  onChange={handleinput}
-                  name="PubYear"
-                  value={bookdata.PubYear}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Language : </label>
-                <select
-                  required
-                  className="input"
-                  type="text"
-                  onChange={handleinput}
-                  name="Language"
-                  value={bookdata.Language}
-                >
-                  <option>Select</option>
-                  <option>Gujarati</option>
-                  <option>Hindi</option>
-                  <option>English</option>
-                </select>
-              </div>
-              <div className="Addbook-inputarea">
-              <label>Number Of Pages : </label>
-                <input
-                  required
-                  className="sort-input"
-                  type="number"
-                  onChange={handleinput}
-                  name="BookPages"
-                  value={bookdata.BookPages}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Weight : </label>
-                <input
-                  required
-                  className="sort-input"
-                  type="number"
-                  onChange={handleinput}
-                  name="Weight"
-                  value={bookdata.Weight}
-                />
-                
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Binding : </label>
-                <input
-                  required
-                  className="sort-input"
-                  onChange={handleinput}
-                  type="text"
-                  name="Binding"
-                  value={bookdata.Binding}
-                />
-              </div>
-              <div className="Addbook-inputarea">
-                <label>Size : </label>
-                <input
-                  required
-                  className="sort-input"
-                  type="text"
-                  onChange={handleinput}
-                  name="Size"
-                  value={bookdata.Size}
-                />
-              </div>
-              
-             
-              
-              
-              
-              
-              <div className="large-Addbook-inputarea">
-                <label> Discription : </label>
-                <textarea
-                  required
-                  className="large-input"
-                  onChange={handleinput}
-                  name="Discribption"
-                  value={bookdata.Discribption}
-                ></textarea>
-              </div>
-              
+              {!edit && (
+                <div className="btn-container">
+                  <button onClick={handleadd} className="btn">
+                    <AddOutlinedIcon />
+                    Add
+                  </button>
+                </div>
+              )}
+              {edit && (
+                <div className="btn-container">
+                  <button onClick={handleedit} className="btn">
+                    <EditNoteIcon />
+                    Edit
+                  </button>
+                </div>
+              )}
             </div>
-            {!edit && (<div className="btn-container">
-              
-              
-              <button onClick={handleadd} className="btn">
-                <AddOutlinedIcon />
-                Add
-              </button>
-              
-             
-            </div>
-            )}
-            {edit && (<div className="btn-container">
-              
-              <button onClick={handleedit} className="btn">
-                <EditNoteIcon />
-                Edit
-              </button>
-              
-              </div>
-            )}
-</div>
 
             <div className="userlist-container">
               <h1>Added Book List</h1>
@@ -595,19 +630,19 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                   <tr>
                     {/* <th>Front Image</th> */}
                     {/* <th>Back Image</th> */}
-                    
-                    <th> ISBN  </th>
-                    <th>Book Name  </th>
-                    
-                    <th> Author Name  </th>
+
+                    <th> ISBN </th>
+                    <th>Book Name </th>
+
+                    <th> Author Name </th>
                     {/* <th>Book Name Guj</th> */}
-                    <th>Price  </th>
-                    
-                    <th> Subject  </th>
-                    <th> Category  </th>
-                    
-                    <th> Edit  </th>
-                    <th> Delete  </th>
+                    <th>Price </th>
+
+                    <th> Subject </th>
+                    <th> Category </th>
+
+                    <th> Edit </th>
+                    <th> Delete </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -631,7 +666,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                             src={i.BackImage}
                           />
                         </td> */}
-                        
+
                         <td key={i.ISBN}> {i.ISBN}</td>
                         <td key={i.BookName}> {i.BookName}</td>
                         <td key={i.AuthorName}> {i.AuthorName}</td>
@@ -655,8 +690,9 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                         </td>
                         <td
                           key={i._id}
-                          onClick={() =>{ setdeletedilog(true)
-                            setdeletedata(i)
+                          onClick={() => {
+                            setdeletedilog(true);
+                            setdeletedata(i);
                           }}
                           className="delete"
                         >

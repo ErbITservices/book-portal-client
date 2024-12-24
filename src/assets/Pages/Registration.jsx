@@ -66,7 +66,7 @@ function Registration() {
           <div className="signup-container">
             <h1>Welcome, Sign Up</h1>
             <div className="signup-inputarea">
-              <label>Publisher Name</label>
+              <label>Member Name</label>
               <input
                 className="input"
                 type="text"
