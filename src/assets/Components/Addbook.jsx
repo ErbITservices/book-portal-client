@@ -126,7 +126,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
          alert("You Reached Maximum book Limit");
     }
     
-    else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
+    else if (Number(totalprice) > Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
       alert("You Reached Maximum price Limit Of Set");
     }
     else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
@@ -234,7 +234,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     if (Number(schemedata.max_book_number) <= booklist.length) {
       alert(`You Can Not Add More Than ${schemedata.max_book_number} Books`);
  }
- else if (Number(totalprice) >= Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
+ else if (Number(totalprice) > Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
    alert("You Reached Maximum price Limit Of Set");
  }
  else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
