@@ -20,7 +20,8 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   const [totalprice, settotalprice] = useState(0);
   const [loader, setloader] = useState(false);
   const [edit, setedit] = useState(false);
-  const [deletedata,setdeletedata] = useState();
+  const [deletedata, setdeletedata] = useState();
+  const [tempprice, settempprice] = useState();
 
   const [deletedilog, setdeletedilog] = useState(false);
   const [submitdilog, setsubmitdilog] = useState(false);
@@ -225,6 +226,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   const[editdata,seteditdata] = useState()
   function showedit(i) {
     console.log(i);
+    settempprice(i.Price);
     seteditdata(i._id)
     setedit(true);
     setbookdata(i);
@@ -234,66 +236,87 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     if (Number(schemedata.max_book_number) <= booklist.length) {
       alert(`You Can Not Add More Than ${schemedata.max_book_number} Books`);
  }
- else if (Number(totalprice) > Number(schemedata.total_book_price) || (Number(bookdata.Price)+Number(totalprice))>Number(schemedata.total_book_price)) {
+ else if (
+   Number(totalprice) > Number(schemedata.total_book_price) ||
+   Number(bookdata.Price) + Number(totalprice) - Number(tempprice) >
+     Number(schemedata.total_book_price)
+ ) {
    alert("You Reached Maximum price Limit Of Set");
- }
- else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
+ } else if (Number(bookdata.Price) < Number(schemedata.book_price)) {
    alert(`Your Book Can Not Be Cheaper Than ${schemedata.book_price}`);
- }
- else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
+ } else if (Number(bookdata.Price) > Number(schemedata.max_book_price)) {
    alert(`Your Book Can Not Be Expensive Than ${schemedata.max_book_price}`);
- }
- else if (Number(bookdata.ISBN.length) < 13 || Number(bookdata.ISBN.length) > 13) {
+ } else if (
+   Number(bookdata.ISBN.length) < 13 ||
+   Number(bookdata.ISBN.length) > 13
+ ) {
    alert("Please Enter 13 Digit ISBN Number");
+ } else if (
+   bookdata.ISBN === "" ||
+   bookdata.AuthorName === "" ||
+   bookdata.AuthorNameGuj === "" ||
+   bookdata.Binding === "" ||
+   bookdata.BookName === "" ||
+   bookdata.BookNameGuj === "" ||
+   bookdata.BookPages === "" ||
+   bookdata.Category === "" ||
+   bookdata.Discribption === "" ||
+   bookdata.ISBN === "" ||
+   bookdata.Language === "" ||
+   bookdata.Price === "" ||
+   bookdata.PubYear === "" ||
+   bookdata.PublisherName === "" ||
+   bookdata.Size === "" ||
+   bookdata.Subject === "" ||
+   bookdata.Weight === ""
+ ) {
+   alert("All Field Are Require");
+ } else {
+   setloader(true);
+   const res = await userRequest.put(`/api/v1/bookeEntry/update/${editdata}`, {
+     bookdata,
+   });
+   console.log(res);
+   setedit(false);
+   setbookdata({
+     ISBN: "",
+     BookName: "",
+     BookNameGuj: "",
+     BookPages: "",
+     AuthorName: "",
+     AuthorNameGuj: "",
+     PublisherName: "",
+     Price: "",
+     Discribption: "",
+     Size: "",
+     Binding: "",
+     Weight: "",
+     Language: "",
+     Subject: "",
+     PubYear: "",
+     Category: "",
+     schemename: schemename,
+     Email: email,
+     userId: User_id,
+     User_name: User_name,
+   });
+
+   setbooklist([]);
+   const res2 = await userRequest.get(
+     `/api/v1/bookeEntry/getBook/${localStorage.getItem(
+       "user_id"
+     )}/${schemename}`
+   );
+   if (res2.data.bookEntry) {
+     setbooklist(res2.data.bookEntry);
+   }
+   let count = 0;
+   for (let index = 0; index < res2.data.bookEntry.length; index++) {
+     count += Number(res2.data.bookEntry[index].Price);
+     console.log(count);
+   }
+   settotalprice(count);
  }
- else if(bookdata.ISBN === "" || bookdata.AuthorName==="" || bookdata.AuthorNameGuj===""|| bookdata.Binding===""|| bookdata.BookName===""|| bookdata.BookNameGuj===""|| bookdata.BookPages===""|| bookdata.Category===""|| bookdata.Discribption===""|| bookdata.ISBN===""|| bookdata.Language===""|| bookdata.Price===""|| bookdata.PubYear===""|| bookdata.PublisherName===""|| bookdata.Size===""|| bookdata.Subject===""|| bookdata.Weight===""){
-  alert("All Field Are Require");
-}
- else{
-    setloader(true);
-    const res = await userRequest.put(`/api/v1/bookeEntry/update/${editdata}`, {bookdata});
-    console.log(res);
-    setedit(false)
-    setbookdata({
-      ISBN: "",
-    BookName: "",
-    BookNameGuj: "",
-    BookPages: "",
-    AuthorName: "",
-    AuthorNameGuj: "",
-    PublisherName: "",
-    Price: "",
-    Discribption: "",
-    Size: "",
-    Binding: "",
-    Weight: "",
-    Language: "",
-    Subject: "",
-    PubYear: "",
-    Category: "",
-    schemename: schemename,
-    Email: email,
-    userId: User_id,
-    User_name:User_name,
-    });
-    
-    setbooklist([]);
-     const res2 = await userRequest.get(
-       `/api/v1/bookeEntry/getBook/${localStorage.getItem(
-         "user_id"
-       )}/${schemename}`
-     );
-     if (res2.data.bookEntry) {
-       setbooklist(res2.data.bookEntry);
-     }
-     let count = 0;
-      for (let index = 0; index < res2.data.bookEntry.length; index++) {
-        count += Number(res2.data.bookEntry[index].Price);
-        console.log(count);
-        
-      }
-      settotalprice(count);
-    }
       
       
     setloader(false);
@@ -570,14 +593,14 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
                 </div>
                 <div className="Addbook-inputarea">
                   <label>Size : </label>
-                  <input
+                  {/* <input
                     required
                     className="sort-input"
                     type="text"
                     onChange={handleinput}
                     name="Size"
                     value={bookdata.Size}
-                  />
+                  /> */}
                   <select
                     required
                     className="input"
