@@ -233,10 +233,10 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   }
   async function handleedit(i) {
     // list.remove(i);
-    if (Number(schemedata.max_book_number) <= booklist.length) {
-      alert(`You Can Not Add More Than ${schemedata.max_book_number} Books`);
- }
- else if (
+//     if (Number(schemedata.max_book_number) <= booklist.length) {
+//       alert(`You Can Not Add More Than ${schemedata.max_book_number} Books`);
+//  }
+  if (
    Number(totalprice) > Number(schemedata.total_book_price) ||
    Number(bookdata.Price) + Number(totalprice) - Number(tempprice) >
      Number(schemedata.total_book_price)
