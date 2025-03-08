@@ -30,20 +30,24 @@ function Login() {
     console.log(res);
 
     if (res.status === 200) {
+      
+      
+        localStorage.setItem("gpm-username", res.data.user.username);
+        localStorage.setItem("gpm-user_id", res.data.user.id);
+        localStorage.setItem("gpm-password", userdata.password);
+        // localStorage.setItem("district");
+        localStorage.setItem("gpm-email", res.data.user.email);
+      localStorage.setItem("bookportellogin", true);
+      console.log(localStorage.getItem("bookportellogin"));
       setuserdata({
         email: "",
         password: "",
       });
-      
-        localStorage.setItem("username", res.data.user.username);
-        localStorage.setItem("user_id", res.data.user.id);
-        // localStorage.setItem("district");
-        localStorage.setItem("email", res.data.user.email);
-        localStorage.setItem("bookportellogin", "true");
       navigator("/Dashboard");
     }
     }
     catch (e) {
+      console.log(e);
         alert("Email or Password Invalid");
       }
   }
