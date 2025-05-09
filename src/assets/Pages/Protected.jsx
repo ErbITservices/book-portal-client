@@ -45,7 +45,7 @@ function Protected(props) {
         }
       isLogin()
         
-    },[login])
+    },[])
     return (
       <div>
         <SpeedInsights/>
