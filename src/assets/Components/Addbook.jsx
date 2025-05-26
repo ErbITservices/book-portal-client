@@ -97,7 +97,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
         settotalprice(count)
         
       } catch (error) {
-        
+        console.log(error);
         setloader(false);
         
       alert("Somthing Wrong!! Try Again");
