@@ -63,8 +63,9 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
       try {
         
         const res4 = await userRequest.get(`/api/v1/subject/getSubject`);
-        setsubjectlist(res4.data.Subject);
         console.log(res4);
+        setsubjectlist(res4.data.Subject);
+        
         
         const res3 = await userRequest.get(
           `/api/v1/scheam/getOneScheam/${schemename}`
