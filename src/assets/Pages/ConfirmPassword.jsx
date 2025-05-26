@@ -21,7 +21,6 @@ function ConfirmPassword() {
        ...userdata,
        [name]: value,
      });
-     console.log(userdata);
    }
   async function handlesubmit() {
     if (userdata.password === userdata.cpassword) {
@@ -29,7 +28,6 @@ function ConfirmPassword() {
         userdata,
     });
     
-    console.log(res);
 
     if (res.status === 200) {
       alert("Password Updated")

@@ -31,7 +31,6 @@ function Dashboard() {
         );
         let arr = [];
         
-        console.log(res.data);
         if (res2.data.data.length > 0) {
           for (let index = 0; index < res.data.Scheam
             .length; index++) {
@@ -48,7 +47,6 @@ function Dashboard() {
                 !arr.includes(res2.data.data[i].scheamName)
               ) {
                 arr.push(temp);
-                console.log(temp);
               }
               if (
                 (res2.data.data[i].scheamName ===
@@ -59,14 +57,12 @@ function Dashboard() {
                 arr.includes(res2.data.data[i].scheamName)
               ) {
                 arr.pop(temp);
-                console.log("mihir");
               }
             }
           }
 
           setscheme(arr);
         } else {
-          console.log("in");
           for (let index = 0; index < res.data.Scheam
             .length; index++) {
             arr.push(res.data.Scheam
@@ -75,11 +71,8 @@ function Dashboard() {
           setscheme(arr);
         }
 
-        console.log(res.data);
-
-        console.log(res2.data.data);
       } catch (error) {
-        console.log(error);
+        alert("Somthing Wrong!! Try Again");
       }
     };
     dataget();
@@ -110,7 +103,6 @@ function Dashboard() {
                 !arr.includes(res2.data.data[i].scheamName)
               ) {
                 arr.push(temp);
-                console.log(temp);
               }
               if (
                 (res2.data.data[i].scheamName ===
@@ -121,14 +113,12 @@ function Dashboard() {
                 arr.includes(res2.data.data[i].scheamName)
               ) {
                 arr.pop(temp);
-                console.log("mihir");
               }
             }
           }
 
           setscheme(arr);
         } else {
-          console.log("in");
           for (let index = 0; index < res.data.Scheam
             .length; index++) {
             arr.push(res.data.Scheam
@@ -137,12 +127,8 @@ function Dashboard() {
           setscheme(arr);
         }
 
-        console.log(res.data.Scheam
-        );
-
-        console.log(res2.data.data);
       } catch (error) {
-        console.log(error);
+        alert("Somthing Wrong!! Try Again");
       }
     
   }
@@ -150,10 +136,8 @@ function Dashboard() {
     const name = e.target.name;
     const value = e.target.value;
     setschemename({ ...schemename, [name]: value });
-    console.log(schemename);
   }
   function handlecontinue() {
-    console.log(schemename);
 
     if (schemename.schemename != "") {
       setshowaddbook(false);
@@ -217,7 +201,6 @@ function Dashboard() {
                         key={index}
                         className="eye"
                         onClick={() => {
-                          console.log(i.scheamName);
                           setsubmiteddate(i.createdAt);
                           settempsname(i.scheamName);
                           handlesetshowbookdata(i.scheamName);

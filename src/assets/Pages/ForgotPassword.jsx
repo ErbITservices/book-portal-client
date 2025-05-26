@@ -19,15 +19,12 @@ function ForgotPassword() {
        ...userdata,
        [name]: value,
      });
-     console.log(userdata);
    }
   async function handlesubmit() {
     try{const res = await userRequest.post("/api/v1/admin/sendpasswordlink", {
         userdata,
     });
     
-    console.log(res);
-
     if (res.status === 200) {
       setuserdata({
         email: "",

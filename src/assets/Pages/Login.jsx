@@ -20,14 +20,12 @@ function Login() {
        ...userdata,
        [name]: value,
      });
-     console.log(userdata);
    }
   async function handlesubmit() {
     try{const res = await userRequest.post("/api/v1/admin/login", {
         userdata,
     });
     
-    console.log(res);
 
     if (res.status === 200) {
       
@@ -38,7 +36,6 @@ function Login() {
         // localStorage.setItem("district");
         localStorage.setItem("gpm-email", res.data.user.email);
       localStorage.setItem("bookportellogin", true);
-      console.log(localStorage.getItem("bookportellogin"));
       setuserdata({
         email: "",
         password: "",
@@ -47,7 +44,6 @@ function Login() {
     }
     }
     catch (e) {
-      console.log(e);
         alert("Email or Password Invalid");
       }
   }

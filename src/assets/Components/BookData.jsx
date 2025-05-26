@@ -21,8 +21,6 @@ function BookData({User_id,Scheme_name, backtodashboard ,submiteddate}) {
   useEffect(() => {
     const dataget = async () => {
       setloader(true)
-      console.log(
-        `/api/v1/bookeEntry/getBook/${User_id}/${Scheme_name}`);
       
       try {
        
@@ -30,19 +28,11 @@ function BookData({User_id,Scheme_name, backtodashboard ,submiteddate}) {
         const res2 = await userRequest.get(
           `/api/v1/bookeEntry/getBook/${User_id}/${Scheme_name}`
         );
-        
-        console.log(res2.data.bookEntry);
-        
-          
         setbooklist(res2.data.bookEntry);
-        
-  
-        
-        
       } catch (error) {
         
       setloader(false);
-        console.log(error);
+      alert("Somthing Wrong!! Try Again");
       }
       setloader(false);
     };

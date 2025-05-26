@@ -10,11 +10,9 @@ function Protected(props) {
    email: localStorage.getItem("gpm-email"),
    password: localStorage.getItem("gpm-password"),
  });
-  console.log(userdata);
   
   
     useEffect( () => {
-      console.log("protected");
       
         async function isLogin() {
           if (localStorage.getItem("bookportellogin")) {

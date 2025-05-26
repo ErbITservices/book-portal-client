@@ -65,12 +65,10 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
           `/api/v1/CategoryName/getCategoryName`
         );
         setcategorylist(res1.data.Category);
-        // console.log("loading category");
         const res3 = await userRequest.get(
           `/api/v1/scheam/getOneScheam/${schemename}`
         );
         setschemedata(res3.data.Scheam);
-        // console.log("loading scheme");
         
         const res2 = await userRequest.get(
           `/api/v1/bookeEntry/getBook/${localStorage.getItem(
@@ -82,17 +80,12 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
         );
           setsubjectlist(res4.data.Subject)
         
-        console.log(res4.data);
         
         if (res2.data.bookEntry) {
           
         setbooklist(res2.data.bookEntry);
         }
         
-        // console.log(schemedata);
-        
-         
-        // console.log(res3.data.Scheam);
         
         let count = 0;
         for (let index = 0; index < res2.data.bookEntry.length; index++) {
@@ -102,8 +95,9 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
         
       } catch (error) {
         
-      setloader(false);
-        console.log(error);
+        setloader(false);
+        
+      alert("Somthing Wrong!! Try Again");
       }
       setloader(false);
     };
@@ -118,7 +112,6 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
       ...bookdata,
       [name]: value,
     });
-    console.log(bookdata);
     
     
   }
@@ -208,7 +201,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     
     setbooklist([]);
     const res = await userRequest.delete(`/api/v1/bookeEntry/delete/${i._id}`);
-    console.log(res);
+    
      const res2 = await userRequest.get(
        `/api/v1/bookeEntry/getBook/${localStorage.getItem(
          "user_id"
@@ -225,7 +218,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
   }
   const[editdata,seteditdata] = useState()
   function showedit(i) {
-    console.log(i);
+    
     settempprice(i.Price);
     seteditdata(i._id)
     setedit(true);
@@ -276,7 +269,6 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
    const res = await userRequest.put(`/api/v1/bookeEntry/update/${editdata}`, {
      bookdata,
    });
-   console.log(res);
    setedit(false);
    setbookdata({
      ISBN: "",
@@ -313,7 +305,6 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
    let count = 0;
    for (let index = 0; index < res2.data.bookEntry.length; index++) {
      count += Number(res2.data.bookEntry[index].Price);
-     console.log(count);
    }
    settotalprice(count);
  }

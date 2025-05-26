@@ -26,7 +26,6 @@ function Registration() {
       [name]: value,
     });
     
-    console.log(userdata);
   }
   async function handlesubmit() {
     if (userdata.password===userdata.cpassword) {
@@ -49,7 +48,7 @@ function Registration() {
       }
       else{
         
-      alert("You Can Not Same Email And Contact Name In Multiple Accouts");
+      alert("You Can Not Use Same Email And Contact Name In Multiple Accouts");
       }
     }
     else {
