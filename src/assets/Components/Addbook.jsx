@@ -62,6 +62,8 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
       setloader(true)
       try {
         
+        const res4 = await userRequest.get(`/api/v1/subject/getSubject`);
+        setsubjectlist(res4.data.Subject);
         const res3 = await userRequest.get(
           `/api/v1/scheam/getOneScheam/${schemename}`
         );
@@ -77,10 +79,7 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
             "user_id"
           )}/${schemename}`
         );
-        const res4 = await userRequest.get(
-          `/api/v1/subject/getSubject`
-        );
-          setsubjectlist(res4.data.Subject)
+        
         
         
         if (res2.data.bookEntry) {
