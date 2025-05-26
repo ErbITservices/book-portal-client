@@ -61,15 +61,17 @@ function Addbook({ schemename , backtodashboard,setschemename, handlerefresh }) 
     const dataget = async () => {
       setloader(true)
       try {
+        
+        const res3 = await userRequest.get(
+          `/api/v1/scheam/getOneScheam/${schemename}`
+        );
+
+        setschemedata(res3.data.Scheam);
+        
         const res1 = await userRequest.get(
           `/api/v1/CategoryName/getCategoryName`
         );
         setcategorylist(res1.data.Category);
-        const res3 = await userRequest.get(
-          `/api/v1/scheam/getOneScheam/${schemename}`
-        );
-        setschemedata(res3.data.Scheam);
-        
         const res2 = await userRequest.get(
           `/api/v1/bookeEntry/getBook/${localStorage.getItem(
             "user_id"
