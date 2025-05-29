@@ -38,7 +38,7 @@ function ConfirmPassword() {
     }
     }
     catch (e) {
-        alert("Try Again...");
+        alert("Sorry, Try Again...");
       }
     }
     else{
