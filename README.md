@@ -64,9 +64,9 @@ cd book-portal-client
 ```
 2. **Install dependencies:**
 
-   ```bash
+```bash
    npm install
-   ```
+```
 3. **Start the development server:**
 
 ```bash
@@ -74,8 +74,8 @@ npm run dev
 ```
 4. **Open your browser and visit:**
 
-   ```bash
+```bash
    [npm install](http://localhost:5173/)
-   ```
+```
 ## 👥 Contributors
  - PATELMIHIR2715
