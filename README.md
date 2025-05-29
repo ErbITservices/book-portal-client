@@ -28,16 +28,27 @@
 book-portal-client/
 
 ├── public/ # Static assets
+
 ├── src/ # Source code
+
 │ ├── components/ # Reusable components
+
 │ ├── pages/ # Application pages
+
 │ ├── App.jsx # Root component
+
 │ └── main.jsx # Entry point
+
 ├── .env # Environment variables
+
 ├── .gitignore # Git ignore rules
+
 ├── index.html # Main HTML file
+
 ├── package.json # Project metadata and scripts
+
 ├── vite.config.js # Vite configuration
+
 └── README.md # Project documentation
 
 
